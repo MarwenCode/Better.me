@@ -1,0 +1,13 @@
+.communities {
+    display: flex;
+    color: red;
+
+    .sidebar {
+        flex:2;
+        background-color: red;
+    }
+
+    .content {
+        flex:7
+    }
+}

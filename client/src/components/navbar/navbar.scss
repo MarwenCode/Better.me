@@ -1,0 +1,137 @@
+// Main navigation bar
+.main-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  // background-color: #f8f9fa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+  background-color: #12002b;
+  color: white;
+
+  @media (max-width: 768px) {
+    padding: 10px 20px;
+  }
+
+  // Logo
+  .main-nav-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+
+    img {
+      max-width: 100%;
+      width: 180px;
+
+      @media (max-width: 480px) {
+        width: 150px;
+      }
+    }
+
+    .sr-only {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: rgb(26, 24, 24);
+    }
+  }
+
+  // Navigation items
+  .main-nav-items {
+    display: flex;
+    align-items: center;
+    color: white;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    // Search bar
+    .search-bar {
+      display: flex;
+      align-items: center;
+      width: 600px;
+      position: relative;
+ 
+    
+ 
+    
+      margin-right: 80px;
+    
+
+      @media (max-width: 768px) {
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+
+      input {
+        padding: 12px 30px;
+        border: none;
+        border-radius: 5px 0 0 5px;
+        font-size: 18px;
+        outline: none;
+        width: 100%;
+        border-radius: 10px;
+        background-color: #333;
+      
+      }
+
+      .search-button {
+   
+        border: none;
+        border-radius: 0 5px 5px 0;
+        color: white;
+        padding: 12px 15px;
+        cursor: pointer;
+        position: absolute;
+        margin-right: 30px;
+
+      
+      }
+    }
+
+    // Navigation items
+    .main-nav-item {
+      text-decoration: none;
+      margin-left: 20px;
+      // color: #333;
+      color: white;
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      font-weight: 500;
+      transition: color 0.2s ease-in-out;
+
+      &:hover {
+        color: #007bff;
+        text-decoration: none;
+      }
+
+      @media (max-width: 768px) {
+        margin-left: 0;
+        margin-bottom: 10px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      @media (max-width: 480px) {
+        font-size: 14px;
+      }
+
+      // Icons
+      .fa-sign-out-alt,
+      .fa-user-circle,
+      .fa-search {
+        margin-left: 5px;
+      }
+
+      .fas {
+        margin-right: 8px;
+      }
+    }
+  }
+}

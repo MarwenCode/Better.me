@@ -1,0 +1,40 @@
+.editor-container {
+    display: flex;
+    flex-direction: column;
+   
+  }
+  
+  .toolbar {
+    display: flex;
+    justify-content: start;
+    background: #222020;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+   
+  }
+  
+  .toolbar button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    background: #222020;
+    cursor: pointer;
+  }
+  
+  .toolbar button:hover {
+    background: #215d8f;
+  }
+  
+  .editor {
+    min-height: 300px;
+    max-height: 500px;
+    overflow-y: auto;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  .editor[contenteditable="false"] {
+    background-color: #f0f0f3;
+    cursor: not-allowed;
+  }
+  
