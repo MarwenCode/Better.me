@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import CreateCommunityModal from '../../pages/communities/CreateCommunityModal';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCommunities } from '../../redux/communitySlice/communitySlice';
+import { fetchCommunities, deleteCommunityById } from '../../redux/communitySlice/communitySlice';
+import { fetchPostsByCommunity } from '../../redux/postSlice/postSlice';
 import './sidebar.scss';
 
-const Sidebar = () => {
+const Sidebar = ({ onSelectCommunity }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
-  const { communities, status } = useSelector((state) => state.communities);
+  const { communities, status, error } = useSelector((state) => state.communities);
+  const { posts } = useSelector((state) => state.posts);
 
   useEffect(() => {
     if (status === 'idle') {
@@ -16,12 +17,34 @@ const Sidebar = () => {
     }
   }, [dispatch, status]);
 
+  useEffect(() => {
+    if (communities && communities.length > 0) {
+      communities.forEach((community) => {
+        dispatch(fetchPostsByCommunity(community.id));
+      });
+    }
+  }, [dispatch, communities]);
+
   const handleCreateCommunity = () => {
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleSelectCommunity = (community) => {
+    console.log('Selected community:', community); // Log to verify
+    onSelectCommunity(community);
+  };
+
+  const handleDeleteCommunity = async (communityId) => {
+    try {
+      dispatch(deleteCommunityById(communityId));
+      onSelectCommunity(null); // Clear the selected community after deletion
+    } catch (error) {
+      console.error('Error deleting community:', error);
+    }
   };
 
   return (
@@ -33,18 +56,16 @@ const Sidebar = () => {
         {status === 'loading' && <p>Loading communities...</p>}
         {status === 'succeeded' && communities.length > 0 ? (
           communities.map((community) => (
-            <div key={community.id} className="community-item">
-              <img className="community-image" src={community.imageUrl} alt={community.title} />
+            <div key={community.id} className="community-item" onClick={() => handleSelectCommunity(community)}>
               <span className="community-title">{community.title}</span>
+              <p className="community-description">{community.description}</p>
+              <button onClick={(e) => { e.stopPropagation(); handleDeleteCommunity(community.id); }}>Delete</button>
             </div>
           ))
         ) : (
           <p>No communities found.</p>
         )}
-        {status === 'failed' && <p>Error fetching communities.</p>}
-      </div>
-      <div className="home-link">
-        <Link to="/">Home</Link>
+        {status === 'failed' && <p>Error fetching communities: {error}</p>}
       </div>
       {isModalOpen && <CreateCommunityModal isOpen={isModalOpen} onClose={handleCloseModal} />}
     </div>
@@ -52,4 +73,7 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+
+
+
 

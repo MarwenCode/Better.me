@@ -1,15 +1,22 @@
 import express from 'express';
-import { createCommunity, getAllCommunities, getCommunityById } from '../controllers/communityController.js';
+import {
+  createCommunity,
+  getAllCommunities,
+  getCommunityById,
+  deleteCommunityById
+} from '../controllers/communityController.js';
 
 const router = express.Router();
 
-// Créer une nouvelle communauté
-router.post('/', createCommunity);
-
-// Obtenir toutes les communautés
+// Route pour obtenir toutes les communautés
 router.get('/', getAllCommunities);
 
-// Obtenir une communauté par ID
+// Route pour obtenir une communauté par ID
 router.get('/:id', getCommunityById);
+
+// Route pour créer une nouvelle communauté
+router.post('/', createCommunity);
+
+router.delete('/:id', deleteCommunityById);
 
 export default router;

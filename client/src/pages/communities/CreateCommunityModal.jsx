@@ -3,11 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createCommunity } from '../../redux/communitySlice/communitySlice';
 import './createCommunityModal.scss';
 
+
+
+
 const CreateCommunityModal = ({ isOpen, onClose }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const dispatch = useDispatch();
-  const { status, error } = useSelector((state) => state.communities); // Accès à l'état Redux
+  const { status, error } = useSelector((state) => state.communities);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,13 +23,11 @@ const CreateCommunityModal = ({ isOpen, onClose }) => {
     dispatch(createCommunity(communityData))
       .unwrap()
       .then(() => {
-        // Fermer le modal et réinitialiser le formulaire après une soumission réussie
         onClose();
         setTitle('');
         setDescription('');
       })
       .catch((err) => {
-        // Gérer l'erreur, afficher éventuellement une notification ou un message
         console.error('Error creating community:', err);
       });
   };
@@ -60,7 +61,7 @@ const CreateCommunityModal = ({ isOpen, onClose }) => {
             <button
               type="submit"
               className="submit-button"
-              disabled={status === 'loading'} // Désactiver le bouton pendant le chargement
+              disabled={status === 'loading'}
             >
               {status === 'loading' ? 'Creating...' : 'Create'}
             </button>
@@ -73,4 +74,5 @@ const CreateCommunityModal = ({ isOpen, onClose }) => {
 };
 
 export default CreateCommunityModal;
+
 

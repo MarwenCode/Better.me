@@ -5,6 +5,7 @@ import authReducer from "./authSlice/authSlice";
 import journeyReducer from "./journeySlice/journeySlice";
 // import stepReducer from "./stepSlice/stepSlice"
 import communityReducer from './communitySlice/communitySlice';
+import postReducer from "./postSlice/postSlice";
 
 
 export const store = configureStore({
@@ -13,6 +14,7 @@ export const store = configureStore({
     journeys: journeyReducer,
     // steps: stepReducer,
     communities: communityReducer,
+    posts: postReducer,
   },
 });
 
