@@ -10,6 +10,8 @@ const Communities = () => {
   const dispatch = useDispatch();
   const { communities, status } = useSelector((state) => state.communities);
 
+  console.log(communities)
+
   useEffect(() => {
     if (status === 'idle') {
       dispatch(fetchCommunities());

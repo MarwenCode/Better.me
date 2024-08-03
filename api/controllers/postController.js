@@ -1,8 +1,14 @@
 import pool from '../config/db.js';
 
-// Créer un nouveau post
+
+
+
 export const createPost = async (req, res) => {
   const { community_id, user_id, title, content } = req.body;
+  const picture = req.file; // La photo est optionnelle
+
+  console.log('Request body:', req.body); // Affichez les données reçues pour débogage
+  console.log('Uploaded file:', picture); // Affichez les fichiers reçus pour débogage
 
   if (!community_id || !user_id || !title || !content) {
     return res.status(400).json({ error: 'Community ID, User ID, title, and content are required' });
@@ -20,6 +26,10 @@ export const createPost = async (req, res) => {
     res.status(500).json({ error: 'Database error' });
   }
 };
+
+
+
+
 
 // Obtenir tous les posts d'une communauté
 export const getPostsByCommunity = async (req, res) => {

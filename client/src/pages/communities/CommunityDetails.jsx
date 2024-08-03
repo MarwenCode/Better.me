@@ -1,30 +1,53 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
+import CreatePostModal from './CreatePostModal';
+import Posts from '../../components/posts/Posts';
+import './communitydetails.scss';
 
 const CommunityDetails = ({ community }) => {
-  console.log('Received community:', community);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    // Si vous avez besoin de faire quelque chose lorsque la communauté change
-    console.log('Community has been updated:', community);
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
 
-    // Ajoutez ici tout code supplémentaire que vous souhaitez exécuter lorsque la communauté change
-
-  }, [community]); // Déclenche l'effet lorsque la communauté change
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   if (!community) {
     return <p>No community data available.</p>;
   }
 
   return (
-    <div>
-      <h1>{community.title}</h1>
-      <p>{community.description}</p>
-      {/* Display other community data here */}
+    <div className='communityDetails'>
+      <div className="top">
+        <div className="leftSide">
+          <button onClick={handleOpenModal}>+ Create a Post</button>
+        </div>
+        <div className="rightSide">
+          <h1>{community.title}</h1>
+          <p>{community.description}</p>
+        </div>
+      </div>
+
+      <div className="down">
+        <div className="leftSide">
+          <Posts communityId={community.id} /> {/* Pass communityId as a prop */}
+        </div>
+        <div className="rightSide">
+          <h3>{community.title}</h3>
+          <p>{community.description}</p>
+          <span>Members number</span>
+        </div>
+      </div>
+
+      {isModalOpen && <CreatePostModal isOpen={isModalOpen} onClose={handleCloseModal} communityId={community.id} />}
     </div>
   );
 };
 
 export default CommunityDetails;
+
 
 
 

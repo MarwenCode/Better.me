@@ -1,3 +1,5 @@
+// postSlice.js
+
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -6,9 +8,10 @@ export const createPost = createAsyncThunk(
   'posts/createPost',
   async (postData, { rejectWithValue }) => {
     try {
+      // Assurez-vous que 'postData' est bien un FormData et non un objet JSON
       const response = await axios.post('http://localhost:5000/api/posts', postData, {
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'multipart/form-data',
         },
       });
       return response.data.post;
@@ -30,19 +33,6 @@ export const fetchPostsByCommunity = createAsyncThunk(
     }
   }
 );
-
-// // Fetch comments by post
-// export const fetchCommentsByPost = createAsyncThunk(
-//   'comments/fetchCommentsByPost',
-//   async (post_id, { rejectWithValue }) => {
-//     try {
-//       const response = await axios.get(`http://localhost:5000/api/comments/${post_id}`);
-//       return response.data.comments;
-//     } catch (error) {
-//       return rejectWithValue(error.response.data);
-//     }
-//   }
-// );
 
 const postSlice = createSlice({
   name: 'posts',
@@ -72,24 +62,10 @@ const postSlice = createSlice({
       .addCase(fetchPostsByCommunity.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.posts = action.payload;
-      })
-      // .addCase(fetchPostsByCommunity.rejected, (state, action) => {
-      //   state.status = 'failed';
-      //   state.error = action.payload;
-      // })
-      // .addCase(fetchCommentsByPost.pending, (state) => {
-      //   state.status = 'loading';
-      // })
-      // .addCase(fetchCommentsByPost.fulfilled, (state, action) => {
-      //   state.status = 'succeeded';
-      //   state.comments = action.payload;
-      // })
-      // .addCase(fetchCommentsByPost.rejected, (state, action) => {
-      //   state.status = 'failed';
-      //   state.error = action.payload;
-      // });
+      });
   },
 });
 
 export default postSlice.reducer;
+
 
