@@ -1,8 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle, faSignOutAlt, faSearch, faGraduationCap, faUsers, faComments } from '@fortawesome/free-solid-svg-icons';
 import { logout } from '../../redux/authSlice/authSlice';
 import "./navbar.scss";
 
@@ -27,31 +26,36 @@ const Navbar = () => {
         {token ? (
           <>
             <div className="search-bar">
-            <span className="search-button">
+              <span className="search-button">
                 <FontAwesomeIcon icon={faSearch} />
               </span>
               <input placeholder="Search Journey" />
-         
             </div>
             <Link className="main-nav-item" to="/journeys">
-              Journeys
+              <FontAwesomeIcon icon={faGraduationCap} />
+              <span className="sr-only">Journeys</span>
             </Link>
             <Link className="main-nav-item" to="/communities">
-              Communities
+              <FontAwesomeIcon icon={faUsers} />
+              <span className="sr-only">Communities</span>
+            </Link>
+            <Link className="main-nav-item" to="/messages">
+              <FontAwesomeIcon icon={faComments} />
+              <span className="sr-only">Messages</span>
             </Link>
             <Link className="main-nav-item" to="/profile">
               <FontAwesomeIcon icon={faUserCircle} />
-              {user?.username}
+              <span className="sr-only">{user?.username}</span>
             </Link>
             <span className="main-nav-item" onClick={handleLogout} style={{ cursor: 'pointer' }}>
               <FontAwesomeIcon icon={faSignOutAlt} />
-              Sign out
+              <span className="sr-only">Sign out</span>
             </span>
           </>
         ) : (
           <Link className="main-nav-item" to="/login">
             <FontAwesomeIcon icon={faUserCircle} />
-            Sign In
+            <span className="sr-only">Sign In</span>
           </Link>
         )}
       </div>
@@ -60,6 +64,9 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+
 
 
 

@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { loginSuccess, setError } from '../../redux/authSlice/authSlice';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
-import "./login.scss";
+import "./register.scss";
 
-const Login = () => {
-  const [identifier, setIdentifier] = useState('');
+const Register = () => {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', { identifier, password });
+      const response = await axios.post('http://localhost:5000/api/auth/register', { username, email, password });
       const { token, user } = response.data;
       dispatch(loginSuccess({ token, user }));
       localStorage.setItem('token', token);
@@ -24,29 +25,33 @@ const Login = () => {
       navigate('/');
     } catch (error) {
       dispatch(setError(error.response.data.error));
-      console.error('Login failed:', error);
+      console.error('Registration failed:', error);
     }
   };
 
   return (
     <div>
       <main className="signInSection">
-        <div className="welcome">
-        <p>Welcome To Better Me, to be the better version of your self</p>
-        </div>
-      
         <section className="sign-in-content">
-     
           <FontAwesomeIcon icon={faUserCircle} className="sign-in-icon" />
-          <h1>Sign In</h1>
+          <h1>Sign Up</h1>
           <form onSubmit={handleSubmit}>
             <div className="input-wrapper">
-              <label htmlFor="identifier">Email or Username</label>
+              <label htmlFor="username">Email or Username</label>
               <input
                 type="text"
-                id="identifier"
-                value={identifier}
-                onChange={(e) => setIdentifier(e.target.value)}
+                id="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+            <div className="input-wrapper">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="input-wrapper">
@@ -58,23 +63,12 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div className="input-remember">
-              <input type="checkbox" id="remember-me" />
-              <label htmlFor="remember-me">Remember me</label>
-            </div>
-            <button className="sign-in-button" type="submit">Sign In</button>
+            <button className="sign-in-button" type="submit">Sign Up</button>
           </form>
-          <div className="register">
-            <Link to='/register'>
-            if your do not have an account please click here
-            </Link>
-           
-          </div>
         </section>
       </main>
     </div>
   );
 };
 
-export default Login;
-
+export default Register;

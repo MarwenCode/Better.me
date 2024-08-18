@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../../components/sidebar/SideBar';
-import CommunityDetails from '../../pages/communities/CommunityDetails';
+import CommunityDetails from '../../components/communityDetails/CommunityDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCommunities } from '../../redux/communitySlice/communitySlice';
 import './communities.scss';

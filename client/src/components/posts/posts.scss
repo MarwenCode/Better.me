@@ -1,24 +1,29 @@
 .posts {
     padding: 1rem;
     background-color: #f9f9f9;
-  }
+    
+    h2 {
+      margin-bottom: 1rem;
+      color: #333; // Assurer la lisibilité des titres
+    }
   
-  .posts h2 {
-    margin-bottom: 1rem;
-  }
+    .post-item {
+      margin-bottom: 1rem;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background-color: #fff; // Fond blanc pour les posts
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); // Ombre légère pour les posts
+    }
   
-  .post-item {
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
+    .post-item h3 {
+      margin-top: 0;
+      color: #333;
+    }
   
-  .post-item h3 {
-    margin-top: 0;
-  }
-  
-  .post-item p {
-    margin: 0.5rem 0;
+    .post-item p {
+      margin: 0.5rem 0;
+      color: #444;
+    }
   }
   

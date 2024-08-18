@@ -13,6 +13,7 @@ import Navbar from "./components/navbar/Navbar";
 import Journeys from "./pages/journeys/Journeys";
 import JourneyDetail from "./components/journeydetail/JourneyDetail";
 import Communities from "./pages/communities/Communities";
+import Register from "./pages/register/Register";
 
 function App() {
  
@@ -24,6 +25,7 @@ function App() {
 
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} /> {/* Register route */}
         <Route path="/" element={<Home />} />
         <Route path="/communities" element={<Communities />} />
         <Route path="/journeys" element={<Journeys />} />

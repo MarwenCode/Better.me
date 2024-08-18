@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import CreateCommunityModal from '../../pages/communities/CreateCommunityModal';
+import CreateCommunityModal from '../createCommunityModal/CreateCommunityModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCommunities, deleteCommunityById } from '../../redux/communitySlice/communitySlice';
 import { fetchPostsByCommunity } from '../../redux/postSlice/postSlice';

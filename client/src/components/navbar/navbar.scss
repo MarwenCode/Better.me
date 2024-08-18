@@ -4,11 +4,14 @@
   justify-content: space-between;
   align-items: center;
   padding: 15px 30px;
-  // background-color: #f8f9fa;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   flex-wrap: wrap;
-  background-color: #12002b;
-  color: white;
+  color: black;
+  background-color: white;
+
+  // Add the following properties:
+  width: 100%;  // Ensure the navbar takes the full width
+  box-sizing: border-box;  // Include padding and border in the element's total width and height
 
   @media (max-width: 768px) {
     padding: 10px 20px;
@@ -41,7 +44,7 @@
   .main-nav-items {
     display: flex;
     align-items: center;
-    color: white;
+    color: black;
 
     @media (max-width: 768px) {
       flex-direction: column;
@@ -54,12 +57,7 @@
       align-items: center;
       width: 600px;
       position: relative;
- 
-    
- 
-    
       margin-right: 80px;
-    
 
       @media (max-width: 768px) {
         margin-right: 0;
@@ -75,11 +73,9 @@
         width: 100%;
         border-radius: 10px;
         background-color: #333;
-      
       }
 
       .search-button {
-   
         border: none;
         border-radius: 0 5px 5px 0;
         color: white;
@@ -87,8 +83,6 @@
         cursor: pointer;
         position: absolute;
         margin-right: 30px;
-
-      
       }
     }
 
@@ -96,16 +90,19 @@
     .main-nav-item {
       text-decoration: none;
       margin-left: 20px;
-      // color: #333;
-      color: white;
+      color: black; /* Set the text color to black */
+      padding: 10px 15px; /* Add padding to make the border visible */
+      border: 1px solid black; /* Add a black border */
+      border-radius: 5px; /* Optional: Add some border-radius for rounded corners */
       display: flex;
       align-items: center;
       font-size: 16px;
       font-weight: 500;
-      transition: color 0.2s ease-in-out;
+      transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 
       &:hover {
-        color: #007bff;
+        color: black; /* Text color on hover */
+        background-color: white; /* Background color on hover */
         text-decoration: none;
       }
 

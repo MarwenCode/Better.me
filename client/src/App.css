@@ -1,7 +1,17 @@
 
 body {
-  background-color: #12002b;
-
+  background-color: #f4f4f5;
+color: black;
   /* background-color: #2d3748;  */
 
+ 
+
 }
+
+.container {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  
+}
+
