@@ -14,6 +14,8 @@ import Journeys from "./pages/journeys/Journeys";
 import JourneyDetail from "./components/journeydetail/JourneyDetail";
 import Communities from "./pages/communities/Communities";
 import Register from "./pages/register/Register";
+import PostDetails from "./pages/postdetails/PostDetails";
+// import Sidebar from "./components/sidebar/SideBar";
 
 function App() {
  
@@ -22,6 +24,7 @@ function App() {
     <Router>
     <div className="container">
      <Navbar />
+     {/* <Sidebar /> */}
 
       <Routes>
         <Route path="/login" element={<Login />} />
@@ -30,6 +33,7 @@ function App() {
         <Route path="/communities" element={<Communities />} />
         <Route path="/journeys" element={<Journeys />} />
         <Route path="/journey/:id" element={<JourneyDetail />} />
+        <Route path="/post/:id" element={<PostDetails />} />
  
       </Routes>
       {/* <Footer /> */}

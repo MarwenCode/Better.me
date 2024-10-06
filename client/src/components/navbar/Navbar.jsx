@@ -1,3 +1,5 @@
+
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,6 +13,8 @@ const Navbar = () => {
   const token = useSelector((state) => state.auth.token);
   const user = useSelector((state) => state.auth.user);
 
+  const [searchFocused, setSearchFocused] = useState(false)
+
   const handleLogout = () => {
     dispatch(logout());
     navigate('/');
@@ -23,41 +27,44 @@ const Navbar = () => {
         <h1 className="sr-only">Better.me</h1>
       </Link>
       <div className="main-nav-items">
-        {token ? (
+        {token && (
           <>
-            <div className="search-bar">
+           <div className={`search-bar ${searchFocused ? 'focused' : ''}`}>
               <span className="search-button">
                 <FontAwesomeIcon icon={faSearch} />
               </span>
-              <input placeholder="Search Journey" />
+              <input onFocus={() => setSearchFocused(true)} onBlur={() => setSearchFocused(false)} />
             </div>
             <Link className="main-nav-item" to="/journeys">
               <FontAwesomeIcon icon={faGraduationCap} />
-              <span className="sr-only">Journeys</span>
+            
             </Link>
             <Link className="main-nav-item" to="/communities">
               <FontAwesomeIcon icon={faUsers} />
-              <span className="sr-only">Communities</span>
+          
             </Link>
             <Link className="main-nav-item" to="/messages">
-              <FontAwesomeIcon icon={faComments} />
-              <span className="sr-only">Messages</span>
+            <FontAwesomeIcon icon={faComments} />
+          
             </Link>
-            <Link className="main-nav-item" to="/profile">
+            {/* <Link className="main-nav-item" to="/profile">
               <FontAwesomeIcon icon={faUserCircle} />
               <span className="sr-only">{user?.username}</span>
-            </Link>
+            </Link> */}
+            <Link className="main-nav-item" to="/">
+            <FontAwesomeIcon icon={faUserCircle} />
+            
+          </Link>
             <span className="main-nav-item" onClick={handleLogout} style={{ cursor: 'pointer' }}>
               <FontAwesomeIcon icon={faSignOutAlt} />
               <span className="sr-only">Sign out</span>
             </span>
+            
           </>
-        ) : (
-          <Link className="main-nav-item" to="/login">
-            <FontAwesomeIcon icon={faUserCircle} />
-            <span className="sr-only">Sign In</span>
-          </Link>
-        )}
+        )  
+      }
+        
+        
       </div>
     </nav>
   );

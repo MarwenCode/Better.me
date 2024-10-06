@@ -34,6 +34,41 @@ export const fetchPostsByCommunity = createAsyncThunk(
   }
 );
 
+//fetch posts for all communities 
+export const fetchPostsForAllCommunities = createAsyncThunk(
+  'posts/fetchPostsForAllCommunities',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/posts/');
+      return response.data.posts;
+      } catch (error) {
+        return rejectWithValue(error.response.data);
+        }
+        }
+)
+
+
+// Fetch posts by user
+export const fetchPostsByUser = createAsyncThunk(
+  'posts/fetchPostsByUser',
+  async (user_id, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/posts/user/${user_id}`);
+      return response.data.posts;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+
+// Action to fetch a specific post by ID
+export const fetchPostById = createAsyncThunk('posts/fetchPostById', async (postId) => {
+  const response = await axios.get(`http://localhost:5000/api/posts/post/${postId}`);
+  return response.data.post; // Ensure the response contains the post
+});
+
+
 const postSlice = createSlice({
   name: 'posts',
   initialState: {
@@ -62,7 +97,31 @@ const postSlice = createSlice({
       .addCase(fetchPostsByCommunity.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.posts = action.payload;
-      });
+      })
+      .addCase(fetchPostsForAllCommunities.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        console.log("All Posts Fetched:", action.payload); // Log pour vérifier les posts
+        state.posts = action.payload.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+      })
+      .addCase(fetchPostsByUser.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        console.log("User Posts Fetched:", action.payload); 
+        state.posts = action.payload.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+      })
+
+        // Gestion de fetchPostById
+        .addCase(fetchPostById.pending, (state) => {
+          state.status = 'loading';
+        })
+        .addCase(fetchPostById.fulfilled, (state, action) => {
+          state.status = 'succeeded';
+          state.post = action.payload; // Stocker le post récupéré
+        })
+        .addCase(fetchPostById.rejected, (state, action) => {
+          state.status = 'failed';
+          state.error = action.error.message;
+        });
+      
   },
 });
 

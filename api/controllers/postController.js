@@ -47,3 +47,67 @@ export const getPostsByCommunity = async (req, res) => {
     res.status(500).json({ error: 'Database error' });
   }
 };
+
+// Obtenir tous les posts de toutes les communautés
+export const getPosts = async (req, res) => {
+  try {
+    const client = await pool.connect();
+    // Requête pour récupérer tous les posts triés par date de création (du plus récent au plus ancien)
+    const query = 'SELECT * FROM Posts ORDER BY created_at DESC';
+    const result = await client.query(query);
+    client.release();
+
+    // Retourne les posts sous forme de JSON
+    res.status(200).json({ posts: result.rows });
+  } catch (error) {
+    console.error('Error fetching all posts:', error);
+    res.status(500).json({ error: 'Database error' });
+  }
+};
+
+
+// Obtenir tous les posts d'un utilisateur spécifique
+export const getPostsByUser = async (req, res) => {
+  const { user_id } = req.params;
+
+  try {
+    const client = await pool.connect();
+    const query = 'SELECT * FROM Posts WHERE user_id = $1 ORDER BY created_at DESC';
+    const result = await client.query(query, [user_id]);
+    client.release();
+
+    // Retourner les posts de l'utilisateur
+    res.status(200).json({ posts: result.rows });
+  } catch (error) {
+    console.error('Error fetching posts by user:', error);
+    res.status(500).json({ error: 'Database error' });
+  }
+};
+
+
+export const getPostById = async (req, res) => {
+  const { id } = req.params;
+  const postId = parseInt(id, 10); // Convertir en entier
+
+  console.log('Requested Post ID:', postId);
+
+  try {
+    const client = await pool.connect();
+    const postQuery = 'SELECT * FROM Posts WHERE id = $1';
+    const postResult = await client.query(postQuery, [postId]);
+
+    console.log('Post query result:', postResult.rows);
+
+    if (postResult.rows.length === 0) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    client.release();
+    res.status(200).json({ post: postResult.rows[0] });
+  } catch (error) {
+    console.error('Error fetching post by ID:', error);
+    res.status(500).json({ error: 'Database error' });
+  }
+};
+
+

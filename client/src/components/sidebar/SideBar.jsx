@@ -49,10 +49,18 @@ const Sidebar = ({ onSelectCommunity }) => {
 
   return (
     <div className="sidebar">
+      <nav className="sidebar-nav">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/popularity">Popularity</a></li>
+          <li><a href="/recent-activities">Recent Activities</a></li>
+        </ul>
+      </nav>
       <button className="create-community-button" onClick={handleCreateCommunity}>
         Create Community
       </button>
       <div className="communities-list">
+        <h3>Recent Communities</h3>
         {status === 'loading' && <p>Loading communities...</p>}
         {status === 'succeeded' && communities.length > 0 ? (
           communities.map((community) => (

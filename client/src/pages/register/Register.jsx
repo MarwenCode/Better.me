@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { loginSuccess, setError } from '../../redux/authSlice/authSlice';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import "./register.scss";
@@ -32,6 +32,9 @@ const Register = () => {
   return (
     <div>
       <main className="signInSection">
+      <div className="welcome">
+        <p>Welcome To Better Me, to be the better version of your self</p>
+        </div>
         <section className="sign-in-content">
           <FontAwesomeIcon icon={faUserCircle} className="sign-in-icon" />
           <h1>Sign Up</h1>
@@ -65,6 +68,12 @@ const Register = () => {
             </div>
             <button className="sign-in-button" type="submit">Sign Up</button>
           </form>
+          <div className="register">
+            <Link to='/login'>
+            if your have an account please click here
+            </Link>
+           
+          </div>
         </section>
       </main>
     </div>

@@ -1,29 +1,53 @@
 .posts {
+  padding: 1rem;
+  background-color: #f9f9f9;
+
+  .post-item {
+    margin-bottom: 1rem;
     padding: 1rem;
-    background-color: #f9f9f9;
-    
-    h2 {
-      margin-bottom: 1rem;
-      color: #333; // Assurer la lisibilité des titres
-    }
-  
-    .post-item {
-      margin-bottom: 1rem;
-      padding: 1rem;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      background-color: #fff; // Fond blanc pour les posts
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); // Ombre légère pour les posts
-    }
-  
-    .post-item h3 {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+
+    h3 {
       margin-top: 0;
-      color: #333;
     }
-  
-    .post-item p {
+
+    p {
       margin: 0.5rem 0;
-      color: #444;
+    }
+
+    .post-actions {
+      display: flex;
+      justify-content: flex-start;
+      gap: 10px;
+      margin-top: 10px;
+
+      .comment-btn,
+      .share-btn {
+        background: none;
+        border: none;
+        color: #007bff;
+        cursor: pointer;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        &:hover {
+          color: #0056b3;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      .comment-btn {
+        text-decoration: none; // Supprime la décoration de lien par défaut
+      }
     }
   }
+}
+
   

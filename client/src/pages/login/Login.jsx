@@ -32,7 +32,7 @@ const Login = () => {
     <div>
       <main className="signInSection">
         <div className="welcome">
-        <p>Welcome To Better Me, to be the better version of your self</p>
+        <p>Welcome To Better.Me, to be the better version of your self</p>
         </div>
       
         <section className="sign-in-content">
