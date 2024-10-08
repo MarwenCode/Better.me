@@ -15,7 +15,7 @@
 
     .journeys-list {
       flex: 10;
-      background-color: #fff;
+      background-color: #e2dfdf;
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       padding: 20px;
@@ -61,7 +61,7 @@
 
         .progress {
           height: 100%;
-          background-color: #007bff;
+          background-color: #ab64ec;
           border-radius: 5px;
         }
 
@@ -112,7 +112,7 @@
 
       button {
         padding: 10px;
-        background-color: #00bc77;
+        background-color: #ab64ec;
         color: white;
         border: none;
         border-radius: 5px;
@@ -120,7 +120,7 @@
         transition: background-color 0.3s ease;
 
         &:hover {
-          background-color: #009966;
+          background-color: #a083e2;
         }
       }
     }

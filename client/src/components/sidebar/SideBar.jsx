@@ -3,10 +3,13 @@ import CreateCommunityModal from '../createCommunityModal/CreateCommunityModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCommunities, deleteCommunityById } from '../../redux/communitySlice/communitySlice';
 import { fetchPostsByCommunity } from '../../redux/postSlice/postSlice';
+import DeleteModal from './DeleteModal';
 import './sidebar.scss';
 
 const Sidebar = ({ onSelectCommunity }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isConfirmModalDeleteOpen, setConfirmModalDeleteOpen] = useState(false);
+  const [communityToDelete, setCommunityToDelete] = useState(null); // Stocker l'ID de la communauté à supprimer
   const dispatch = useDispatch();
   const { communities, status, error } = useSelector((state) => state.communities);
   const { posts } = useSelector((state) => state.posts);
@@ -38,10 +41,18 @@ const Sidebar = ({ onSelectCommunity }) => {
     onSelectCommunity(community);
   };
 
-  const handleDeleteCommunity = async (communityId) => {
+  // Ouvre le modal de confirmation pour supprimer la communauté
+  const handleDeleteClick = (communityId) => {
+    setCommunityToDelete(communityId); // Stocker l'ID de la communauté
+    setConfirmModalDeleteOpen(true); // Ouvrir le modal de confirmation
+  };
+
+  // Supprime la communauté après confirmation
+  const handleDeleteCommunity = async () => {
     try {
-      dispatch(deleteCommunityById(communityId));
-      onSelectCommunity(null); // Clear the selected community after deletion
+      dispatch(deleteCommunityById(communityToDelete)); // Utiliser l'ID stocké
+      onSelectCommunity(null); // Effacer la communauté sélectionnée après suppression
+      setConfirmModalDeleteOpen(false); // Fermer le modal
     } catch (error) {
       console.error('Error deleting community:', error);
     }
@@ -67,7 +78,13 @@ const Sidebar = ({ onSelectCommunity }) => {
             <div key={community.id} className="community-item" onClick={() => handleSelectCommunity(community)}>
               <span className="community-title">{community.title}</span>
               <p className="community-description">{community.description}</p>
-              <button onClick={(e) => { e.stopPropagation(); handleDeleteCommunity(community.id); }}>Delete</button>
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation(); 
+                  handleDeleteClick(community.id); // Ouvre le modal pour confirmation
+                }}>
+                Delete
+              </button>
             </div>
           ))
         ) : (
@@ -76,12 +93,15 @@ const Sidebar = ({ onSelectCommunity }) => {
         {status === 'failed' && <p>Error fetching communities: {error}</p>}
       </div>
       {isModalOpen && <CreateCommunityModal isOpen={isModalOpen} onClose={handleCloseModal} />}
+
+      {/* Modal de confirmation de suppression */}
+      <DeleteModal
+        isOpen={isConfirmModalDeleteOpen}
+        onClose={() => setConfirmModalDeleteOpen(false)} // Ferme le modal sans supprimer
+        onConfirm={handleDeleteCommunity} // Confirme et supprime
+      />
     </div>
   );
 };
 
 export default Sidebar;
-
-
-
-

@@ -59,6 +59,7 @@
       position: relative;
       margin-right: 80px;
       transition: width 0.3s ease-in-out;
+     
 
       &.focused {
         width: 600px;
@@ -70,7 +71,7 @@
       }
 
       input {
-        // padding: 12px 30px;
+        padding: 12px 30px;
         padding-left: 40px;
         border: none;
         border-radius: 5px 0 0 5px;
@@ -78,14 +79,14 @@
         outline: none;
         width: 100%;
         border-radius: 10px;
-        background-color: #b9b7b7;
+        background-color: #f5eeee;
       
       }
 
       .search-button {
         border: none;
         border-radius: 0 5px 5px 0;
-        color: white;
+        color: black;
         padding: 12px 15px;
         cursor: pointer;
         position: absolute;
