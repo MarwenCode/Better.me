@@ -5,9 +5,6 @@ const DeleteModal = ({isOpen, onClose, onConfirm}) => {
 
     if (!isOpen) return null;
 
-
-
-
   return (
     
         <div className="confirmation-modal-overlay">
@@ -15,7 +12,7 @@ const DeleteModal = ({isOpen, onClose, onConfirm}) => {
             <h2>Confirm to delete</h2>
             <p>Are you sure you want to delete this community?</p>
             <div className="confirmation-buttons">
-              <button onClick={onConfirm} className="confirm-button">Yes, Delete</button>
+              <button onClick={onConfirm} className="confirm-button">Delete</button>
               <button onClick={onClose} className="cancel-button">Cancel</button>
             </div>
           </div>

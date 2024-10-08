@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCommunities, deleteCommunityById } from '../../redux/communitySlice/communitySlice';
 import { fetchPostsByCommunity } from '../../redux/postSlice/postSlice';
 import DeleteModal from './DeleteModal';
+import { AiFillHome, AiOutlineStar, AiOutlineBarChart } from 'react-icons/ai'; 
 import './sidebar.scss';
 
 const Sidebar = ({ onSelectCommunity }) => {
@@ -60,13 +61,23 @@ const Sidebar = ({ onSelectCommunity }) => {
 
   return (
     <div className="sidebar">
-      <nav className="sidebar-nav">
+ <nav className="sidebar-nav">
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/popularity">Popularity</a></li>
-          <li><a href="/recent-activities">Recent Activities</a></li>
+          <li>
+            <AiFillHome className="icon" />
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <AiOutlineStar className="icon" />
+            <a href="/popularity">Popularity</a>
+          </li>
+          <li>
+            <AiOutlineBarChart className="icon" />
+            <a href="/recent-activities">Recent Activities</a>
+          </li>
         </ul>
       </nav>
+
       <button className="create-community-button" onClick={handleCreateCommunity}>
         Create Community
       </button>
