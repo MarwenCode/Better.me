@@ -41,7 +41,6 @@ const CreatePostModal = ({ isOpen, onClose, communityId }) => {
     }
   };
   
-  
   if (!isOpen) return null;
 
   return (
@@ -78,7 +77,7 @@ const CreatePostModal = ({ isOpen, onClose, communityId }) => {
             />
           </div>
           {error && <p className="error">{error}</p>}
-          <button type="submit">Create Post</button>
+          <button type="submit" className="submit-button">Create Post</button>
         </form>
       </div>
     </div>
@@ -86,7 +85,3 @@ const CreatePostModal = ({ isOpen, onClose, communityId }) => {
 };
 
 export default CreatePostModal;
-
-
-
-

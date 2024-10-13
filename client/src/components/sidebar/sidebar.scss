@@ -36,18 +36,18 @@
 }
 
 .sidebar-nav ul li a:hover {
-  color: #007bff;
+  // color: #007bff;
 }
 
 .icon:hover {
-  color: #007bff; /* Changer la couleur de l'icône au survol */
+  // color: #007bff; /* Changer la couleur de l'icône au survol */
 }
 
 
 .sidebar-nav ul li a:hover {
-  color: #007bff;
+ 
   .icon {
-    color: #007bff; /* Changer la couleur de l'icône au survol */
+   
   }
 }
 
@@ -69,7 +69,7 @@
 }
 
 .sidebar-nav ul li a:hover {
-  color: #007bff;
+  
 }
 
 .create-community-button {
@@ -86,7 +86,7 @@
 }
 
 .create-community-button:hover {
-  background-color: #0056b3;
+  
 }
 
 .communities-list {
@@ -125,21 +125,28 @@
 }
 
 .community-item button {
-  background-color: #ff4d4d;
-  color: #fff;
+  background-color: transparent; /* Si tu veux garder le bouton sans fond */
   border: none;
-  border-radius: 4px;
-  padding: 5px 10px;
-  font-size: 12px;
   cursor: pointer;
-  position: absolute; /* Place le bouton de suppression */
+  position: absolute;
   right: 10px;
   bottom: 10px;
-  transition: background-color 0.3s;
+  padding: 5px;
 }
 
+.delete-icon {
+  color: #e23232; 
+  transition: color 0.3s ease;
+}
+
+.community-item button:hover .delete-icon {
+  color: #6e6262; /* Changer la couleur au survol */
+}
+
+
+
 .community-item button:hover {
-  background-color: #d40000;
+ 
 }
 
 /* Modal de confirmation de suppression */
@@ -182,7 +189,7 @@
 }
 
 .confirm-button {
-  background-color: #ff4d4d;
+ 
   color: #fff;
   border: none;
   padding: 8px 12px;
@@ -192,7 +199,7 @@
 }
 
 .confirm-button:hover {
-  background-color: #d40000;
+
 }
 
 .cancel-button {
@@ -208,3 +215,6 @@
 .cancel-button:hover {
   background-color: #bbb;
 }
+
+
+

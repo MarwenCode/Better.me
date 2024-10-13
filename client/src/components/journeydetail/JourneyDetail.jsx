@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchJourneyById, fetchSteps, addStep } from "../../redux/journeySlice/journeySlice";
 import ModalStep from "./ModalStep";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 import "./journeydetail.scss";
 
 const JourneyDetail = () => {
@@ -43,9 +44,18 @@ const JourneyDetail = () => {
     setSelectedStep(null);
   };
 
+  const goBack = () => {
+    window.history.back();
+  };
+
+
   return (
     <div className="journey-detail-container">
       <div className="journey-detail-header">
+    
+          <AiOutlineArrowLeft  onClick={goBack}   className="back-icon" /> 
+      
+
         <h1>Your Journey Starts Here</h1>
       </div>
       {journeyStatus === "loading" && <p>Loading journey...</p>}

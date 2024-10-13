@@ -3,10 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createCommunity } from '../../redux/communitySlice/communitySlice';
 import './createCommunityModal.scss';
 
-
-
-
-const CreateCommunityModal = ({ isOpen, onClose }) => {
+const DarkCreateCommunityModal = ({ isOpen, onClose }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const dispatch = useDispatch();
@@ -34,25 +31,27 @@ const CreateCommunityModal = ({ isOpen, onClose }) => {
 
   return (
     isOpen ? (
-      <div className="modal-overlay">
-        <div className="modal-content">
-          <button className="close-button" onClick={onClose}>X</button>
-          <h2>Create Community</h2>
+      <div className="dark-modal-overlay">
+        <div className="dark-modal-container">
+          <button className="dark-close-icon" onClick={onClose}>X</button>
+          <h2 className="dark-modal-title">Create Community</h2>
           <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="title">Title</label>
+            <div className="dark-form-group">
+              <label htmlFor="title" className="dark-label">Title</label>
               <input
                 type="text"
                 id="title"
+                className="dark-input"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 required
               />
             </div>
-            <div className="form-group">
-              <label htmlFor="description">Description</label>
+            <div className="dark-form-group">
+              <label htmlFor="description" className="dark-label">Description</label>
               <textarea
                 id="description"
+                className="dark-textarea"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 required
@@ -60,12 +59,12 @@ const CreateCommunityModal = ({ isOpen, onClose }) => {
             </div>
             <button
               type="submit"
-              className="submit-button"
+              className="dark-submit-button"
               disabled={status === 'loading'}
             >
               {status === 'loading' ? 'Creating...' : 'Create'}
             </button>
-            {error && <p className="error-message">Error: {error}</p>}
+            {error && <p className="dark-error-message">Error: {error}</p>}
           </form>
         </div>
       </div>
@@ -73,6 +72,5 @@ const CreateCommunityModal = ({ isOpen, onClose }) => {
   );
 };
 
-export default CreateCommunityModal;
-
+export default DarkCreateCommunityModal;
 

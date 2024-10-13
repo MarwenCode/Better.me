@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCommunities, deleteCommunityById } from '../../redux/communitySlice/communitySlice';
 import { fetchPostsByCommunity } from '../../redux/postSlice/postSlice';
 import DeleteModal from './DeleteModal';
-import { AiFillHome, AiOutlineStar, AiOutlineBarChart } from 'react-icons/ai'; 
+import { AiFillHome, AiOutlineStar, AiOutlineBarChart, AiOutlineDelete  } from 'react-icons/ai'; 
 import './sidebar.scss';
 
 const Sidebar = ({ onSelectCommunity }) => {
@@ -94,7 +94,7 @@ const Sidebar = ({ onSelectCommunity }) => {
                   e.stopPropagation(); 
                   handleDeleteClick(community.id); // Ouvre le modal pour confirmation
                 }}>
-                Delete
+                  <AiOutlineDelete className="delete-icon" />
               </button>
             </div>
           ))

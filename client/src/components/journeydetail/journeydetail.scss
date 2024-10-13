@@ -3,15 +3,23 @@
   font-family: Arial, sans-serif;
   width: 80%;
   margin: 0 auto;
-  background-color: #1b033d; // Fond sombre pour le conteneur principal
+  // background-color: #1b033d; 
+  background-color: #e7e2ec; 
   border-radius: 8px; // Coins arrondis
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Ombre légère pour donner de la profondeur
-  color: white;
+  color: black;
 
   .journey-detail-header {
     margin-bottom: 20px;
     text-align: center;
-    color: white;
+    color: black;
+
+    .back-icon {
+     margin-right: 120%;
+     font-size: large;
+     font-weight: 500;
+     cursor: pointer;
+    }
 
     h1 {
       font-size: 2.5rem;
@@ -31,7 +39,7 @@
     p {
       font-size: 1.2rem;
       line-height: 1.6;
-      color: #e0e0e0; // Texte gris clair pour le contraste
+      color: black;
     }
   }
 
@@ -100,7 +108,7 @@
           button {
             margin-left: 10px;
             padding: 8px 16px;
-            background-color: #00bc77;
+            background-color: #1b033d;
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -109,7 +117,7 @@
             transition: background-color 0.3s ease;
 
             &:hover {
-              background-color: #00a865; // Couleur plus foncée au survol
+              background-color: #1b033d;
             }
           }
 
@@ -140,7 +148,7 @@
 
     button {
       padding: 12px 24px;
-      background-color: #00bc77;
+      background-color: #1b033d;
       color: #fff;
       border: none;
       border-radius: 5px;
@@ -149,7 +157,7 @@
       transition: background-color 0.3s ease;
 
       &:hover {
-        background-color: #00a865; // Couleur plus foncée au survol
+        background-color: #1b033d;
       }
     }
   }
