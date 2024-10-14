@@ -20,18 +20,16 @@ const CommunityDetails = ({ community }) => {
 
   return (
     <div className="communityDetails">
-      <div className="left">
-        <Posts communityId={community.id} /> {/* Pass communityId as a prop */}
-      </div>
-      <div className="right">
+     
         <div className="items">
-          <button onClick={handleOpenModal}>+ Create a Post</button>
-        </div>
-        <div className="description">
-          <h1>{community.title}</h1>
-          <p>{community.description}</p>
-        </div>
+          <button onClick={handleOpenModal} className="createPost">+ Create a Post</button>
+       
+   
       </div>
+      <div className="left">
+        <Posts communityId={community.id} />
+      </div>
+   
 
       {isModalOpen && (
         <CreatePostModal

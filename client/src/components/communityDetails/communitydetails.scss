@@ -1,11 +1,35 @@
 .communityDetails {
-  display: flex;
-  flex-direction: row;
+  // display: flex;
+  // flex-direction: row;
   gap: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
   padding: 20px;
+
+  .createPost {
+      
+    color: #f0ebeb;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600; 
+    transition: background-color 0.3s, transform 0.2s;
+    background-color: #333;
+   
+    
+    &:hover {
+      background-color: #1b033d;
+      transform: scale(1.05); 
+    }
+    
+    &:focus {
+      outline: none; 
+      box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+    }
+  }
   
 
   .right {
@@ -14,34 +38,14 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 20px;
-    background-color: #f9f9f9; // Couleur de fond douce pour la section droite
+    background-color: #f9f9f9;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Ombre légère pour la section droite
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 
     .items {
-      margin-bottom: 20px; // Espacement sous le bouton
+      margin-bottom: 20px; 
 
-      button {
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        padding: 12px 24px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-        font-weight: 600; // Texte plus gras pour le bouton
-        transition: background-color 0.3s, transform 0.2s;
-        
-        &:hover {
-          background-color: #ab64ec;
-          transform: scale(1.05); // Effet de zoom au survol
-        }
-        
-        &:focus {
-          outline: none; // Supprime le contour par défaut au focus
-          box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); // Ajoute une ombre autour du bouton au focus
-        }
-      }
+      
     }
 
     .description {
@@ -63,9 +67,9 @@
     flex: 6;
     display: flex;
     flex-direction: column;
-    background-color: #f9f9f9; // Fond doux pour la section gauche
+    background-color: #f9f9f9;
     border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Ombre légère pour la section gauche
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
   }
 }

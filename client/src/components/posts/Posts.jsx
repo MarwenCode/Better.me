@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPostsByCommunity } from '../../redux/postSlice/postSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment, faShareAlt } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom'; // Assurez-vous que Link est importé
+import { Link } from 'react-router-dom';
 import './posts.scss';
 
 const Posts = ({ communityId }) => {
@@ -34,26 +34,27 @@ const Posts = ({ communityId }) => {
     <div className="posts">
       <h2>Posts</h2>
       {posts.length > 0 ? (
-        <ul>
+        <div className="post-list">
           {posts.map((post) => (
-            <li key={post.id} className="post-item">
-              <h3>{post.title}</h3>
-              <p>{post.content}</p>
-              <p>
-                <strong>Created at:</strong> {new Date(post.created_at).toLocaleString()}
-              </p>
+            <div key={post.id} className="post-card">
+              <div className="post-header">
+                <h3 className="post-title">{post.title}</h3>
+                <span className="post-date">{new Date(post.created_at).toLocaleString()}</span>
+              </div>
+              <div className="post-content">
+                <p>{post.content}</p>
+              </div>
               <div className="post-actions">
-                {/* Lien vers PostDetails avec l'ID du post */}
                 <Link to={`/post/${post.id}`} className="comment-btn">
-                  <FontAwesomeIcon icon={faComment} /> Comment
+                  <FontAwesomeIcon icon={faComment} /> 
                 </Link>
                 <button className="share-btn" onClick={() => handleShareClick(post.id)}>
                   <FontAwesomeIcon icon={faShareAlt} /> Share
                 </button>
               </div>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       ) : (
         <p>No posts available.</p>
       )}
@@ -62,7 +63,3 @@ const Posts = ({ communityId }) => {
 };
 
 export default Posts;
-
-
-
-

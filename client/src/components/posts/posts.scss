@@ -1,53 +1,83 @@
 .posts {
-  padding: 1rem;
-  background-color: #f9f9f9;
+  padding: 2rem;
+  background-color: #f4f4f9;
 
-  .post-item {
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: white;
+  h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 2rem;
+  }
 
-    h3 {
-      margin-top: 0;
+  .post-list {
+    display: flex;
+    flex-direction: column; // Organisation en colonne
+    gap: 20px;
+  }
+
+  .post-card {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-5px);
     }
 
-    p {
-      margin: 0.5rem 0;
+    .post-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+
+      .post-title {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #333;
+        margin: 0;
+      }
+
+      .post-date {
+        font-size: 0.85rem;
+        color: #888;
+      }
+    }
+
+    .post-content {
+      margin-bottom: 1rem;
+
+      p {
+        color: #555;
+        line-height: 1.6;
+        font-size: 1rem;
+      }
     }
 
     .post-actions {
       display: flex;
       justify-content: flex-start;
-      gap: 10px;
-      margin-top: 10px;
+      gap: 15px;
 
       .comment-btn,
       .share-btn {
-        background: none;
-        border: none;
-        color: #007bff;
-        cursor: pointer;
-        font-size: 14px;
         display: flex;
         align-items: center;
         gap: 5px;
+        padding: 8px 12px;
+        background-color: #1b033d;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
 
         &:hover {
-          color: #0056b3;
+          background-color: #0056b3;
         }
-
-        &:focus {
-          outline: none;
-        }
-      }
-
-      .comment-btn {
-        text-decoration: none; // Supprime la décoration de lien par défaut
       }
     }
   }
 }
-
-  
