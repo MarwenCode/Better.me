@@ -14,10 +14,6 @@ const PostDetails = () => {
   const [commentContent, setCommentContent] = useState('');
   const user = JSON.parse(localStorage.getItem('user')); // Récupérer les informations de l'utilisateur
   const userId = user ? user.id : null; // Assurez-vous que l'ID de l'utilisateur est disponible
-  console.log(userId);
-
-  // Log to verify the fetched post ID
-  console.log('Post ID from URL:', postId);
 
   useEffect(() => {
     if (postId) {
@@ -48,21 +44,16 @@ const PostDetails = () => {
     return <p>Error loading post details: {postError || commentsError}</p>;
   }
 
-  // Check if the post is defined before trying to access its properties
   if (!post) {
-    console.log('Post not found.'); // Log if the post is not found
     return <p>Post not found.</p>;
   }
-
-  // Log to verify the fetched post details
-  console.log('Fetched Post:', post);
 
   return (
     <div className="post-details">
       <h2>{post.title}</h2>
       <p>{post.content}</p>
       <p><strong>Created at:</strong> {new Date(post.created_at).toLocaleString()}</p>
-      {/* Display comments */}
+      
       <h3>Comments</h3>
       {comments.length > 0 ? (
         <ul>
@@ -76,7 +67,7 @@ const PostDetails = () => {
       ) : (
         <p>No comments available.</p>
       )}
-      {/* Comment form */}
+      
       <h3>Add a Comment</h3>
       <form onSubmit={handleCommentSubmit}>
         <textarea
@@ -92,3 +83,4 @@ const PostDetails = () => {
 };
 
 export default PostDetails;
+
