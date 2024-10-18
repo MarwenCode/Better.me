@@ -75,6 +75,16 @@ export const updateStep = createAsyncThunk(
   }
 );
 
+// Toggle step completion
+export const toggleStepCompletion = createAsyncThunk(
+  'journeys/toggleStepCompletion',
+  async ({ step_id, goal_id, completed }) => {
+    const response = await axios.put('http://localhost:5000/api/journeys/steps/toggle', { step_id, goal_id, completed });
+    return response.data;
+  }
+);
+
+
 // Delete a step
 export const deleteStep = createAsyncThunk(
   'journeys/deleteStep',
@@ -83,6 +93,8 @@ export const deleteStep = createAsyncThunk(
     return step_id;
   }
 );
+
+
 
 const journeySlice = createSlice({
   name: 'journeys',
@@ -195,6 +207,8 @@ const journeySlice = createSlice({
         state.status = 'failed';
         state.error = action.error.message;
       });
+
+      
   },
 });
 

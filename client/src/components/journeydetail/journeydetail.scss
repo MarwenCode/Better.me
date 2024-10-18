@@ -1,29 +1,29 @@
 .journey-detail-container {
   padding: 20px;
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   width: 80%;
   margin: 0 auto;
-  // background-color: #1b033d; 
-  background-color: #e7e2ec; 
-  border-radius: 8px; // Coins arrondis
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Ombre légère pour donner de la profondeur
-  color: black;
+  background-color: #f9f9f9; // Arrière-plan plus clair pour le contenu
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  color: #333; // Texte en gris foncé pour plus de contraste
 
   .journey-detail-header {
     margin-bottom: 20px;
     text-align: center;
-    color: black;
 
     .back-icon {
-     margin-right: 120%;
-     font-size: large;
-     font-weight: 500;
-     cursor: pointer;
+      position: absolute;
+      left: 20px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #333; // Couleur sombre pour l'icône
     }
 
     h1 {
       font-size: 2.5rem;
       font-weight: bold;
+      color: #1b033d; // Couleur principale du titre
     }
   }
 
@@ -34,39 +34,40 @@
       font-size: 2rem;
       font-weight: bold;
       margin-top: 0;
+      color: #333; // Couleur principale des sous-titres
     }
 
     p {
       font-size: 1.2rem;
       line-height: 1.6;
-      color: black;
+      color: #555; // Texte plus clair
     }
   }
 
   .progress-bar {
-    background: #e0e0e0;
-    border-radius: 10px; // Coins arrondis pour la barre
+    background: #ddd;
+    border-radius: 12px;
     overflow: hidden;
-    height: 25px; // Hauteur accrue pour plus de visibilité
+    height: 30px; // Hauteur légèrement augmentée
     width: 100%;
     margin: 20px 0;
-    position: relative; // Position relative pour le pourcentage
+    position: relative;
 
     .progress {
-      background: #76c7c0;
+      background: linear-gradient(90deg, #76c7c0, #63b4ab);
       height: 100%;
-      transition: width 0.5s ease-in-out;
+      transition: width 0.4s ease-in-out;
     }
   }
 
   .progress-percent {
     position: absolute;
-    right: 10px;
+    right: 15px;
     top: 50%;
     transform: translateY(-50%);
     font-weight: bold;
     font-size: 1.2rem;
-    color: #333;
+    color: #444;
   }
 
   .steps-list {
@@ -75,7 +76,8 @@
     h3 {
       font-size: 1.5rem;
       font-weight: bold;
-      margin-top: 0;
+      margin-bottom: 10px;
+      color: #1b033d; // Couleur principale des sous-titres
     }
 
     ul {
@@ -87,10 +89,12 @@
         justify-content: space-between;
         align-items: center;
         padding: 15px;
-        border-bottom: 1px solid #444; // Bordure pour chaque étape
+        border-bottom: 1px solid #e0e0e0;
         font-size: 1.2rem;
-        color: #fff; // Texte blanc
-        position: relative; // Position relative pour les éléments flottants
+        background-color: #fff; // Arrière-plan des éléments de la liste
+        border-radius: 5px;
+        margin-bottom: 10px;
+        color: #333;
 
         .step-description {
           flex: 1;
@@ -103,6 +107,8 @@
 
           input[type="checkbox"] {
             margin-right: 10px;
+            transform: scale(1.2); // Agrandir la case à cocher
+            cursor: pointer;
           }
 
           button {
@@ -117,14 +123,19 @@
             transition: background-color 0.3s ease;
 
             &:hover {
-              background-color: #1b033d;
+              background-color: #362167;
             }
           }
 
           span {
             margin-left: 10px;
-            color: #a0a0a0; // Couleur grise pour les détails
-            font-size: 1rem;
+            color: #777;
+            font-size: 0.9rem;
+            cursor: pointer;
+
+            &:hover {
+              color: #333; // Meilleure visibilité au survol
+            }
           }
         }
       }
@@ -143,7 +154,13 @@
       border: 1px solid #ddd;
       border-radius: 5px;
       font-size: 1.2rem;
-      color: #333; // Couleur de texte dans le champ de saisie
+      color: #333;
+      background-color: #fff; // Arrière-plan des champs d'input
+      transition: border 0.3s ease;
+
+      &:focus {
+        border-color: #1b033d; // Bordure en surbrillance au focus
+      }
     }
 
     button {
@@ -157,7 +174,7 @@
       transition: background-color 0.3s ease;
 
       &:hover {
-        background-color: #1b033d;
+        background-color: #362167;
       }
     }
   }

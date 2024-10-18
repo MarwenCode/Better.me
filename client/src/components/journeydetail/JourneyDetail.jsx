@@ -10,16 +10,13 @@ const JourneyDetail = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const journey = useSelector((state) => state.journeys.journey);
-  const journeyStatus = useSelector((state) => state.journeys.status);
-  const journeyError = useSelector((state) => state.journeys.error);
   const steps = useSelector((state) => state.journeys.steps);
-  const stepsStatus = useSelector((state) => state.journeys.status);
-  const stepsError = useSelector((state) => state.journeys.error);
 
   const [newStep, setNewStep] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [selectedStep, setSelectedStep] = useState(null);
 
+  // Fetch journey and steps data on component mount
   useEffect(() => {
     if (id) {
       dispatch(fetchJourneyById(id));
@@ -29,8 +26,10 @@ const JourneyDetail = () => {
 
   const handleAddStep = () => {
     if (newStep.trim() !== "") {
-      dispatch(addStep({ goal_id: id, description: newStep }));
-      setNewStep("");
+      dispatch(addStep({ goal_id: id, description: newStep }))
+        .then(() => {
+          setNewStep("");
+        });
     }
   };
 
@@ -48,31 +47,19 @@ const JourneyDetail = () => {
     window.history.back();
   };
 
-
   return (
     <div className="journey-detail-container">
       <div className="journey-detail-header">
-    
-          <AiOutlineArrowLeft  onClick={goBack}   className="back-icon" /> 
-      
-
+        <AiOutlineArrowLeft onClick={goBack} className="back-icon" />
         <h1>Your Journey Starts Here</h1>
       </div>
-      {journeyStatus === "loading" && <p>Loading journey...</p>}
-      {stepsStatus === "loading" && <p>Loading steps...</p>}
-      {journeyStatus === "failed" && <p>{journeyError}</p>}
-      {stepsStatus === "failed" && <p>{stepsError}</p>}
-      {journeyStatus === "succeeded" && journey && (
+
+      {journey && (
         <div className="journey-detail-content">
           <h2>{journey.title}</h2>
           <p>{journey.description}</p>
         </div>
       )}
-
-      <div className="progress-bar">
-        <div className="progress" style={{ width: `${journey?.progress}%` }}></div>
-      </div>
-      <div className="progress-percent">{journey?.progress}%</div>
 
       {/* Steps List */}
       <div className="steps-list">
@@ -91,7 +78,11 @@ const JourneyDetail = () => {
             <li key={step.step_id}>
               <div className="step-description">{step.description}</div>
               <div className="step-actions">
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  checked={step.completed}
+                  onChange={() => { /* Add logic to toggle step completion */ }}
+                />
                 <span onClick={() => handleOpenModal(step)}>View Details</span>
               </div>
             </li>
@@ -108,6 +99,3 @@ const JourneyDetail = () => {
 };
 
 export default JourneyDetail;
-
-
-

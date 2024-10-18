@@ -25,10 +25,17 @@ const Journeys = () => {
     fetchJourneys();
   }, [fetchJourneys]);
 
-  const handleCreateJourney = (title, description) => {
+  const handleCreateJourney = (title, description, startDate, endDate) => {
     if (userId) {
-      console.log('Dispatching createJourney with:', { title, description, user_id: userId });
-      dispatch(createJourney({ title, description, user_id: userId }));
+      console.log('Dispatching createJourney with:', { title, description, startDate, endDate, user_id: userId });
+      dispatch(createJourney({ title, description, startDate, endDate, user_id: userId }));
+    }
+  };
+
+  const handleDeleteJourney = (journeyId) => {
+    if (userId) {
+      console.log('Dispatching deleteJourney for ID:', journeyId);
+      dispatch(deleteJourney(journeyId)); // Appel de l'action pour supprimer le voyage
     }
   };
 
@@ -47,10 +54,21 @@ const Journeys = () => {
                 <li key={journey.goal_id} className="journey-card">
                   <h2>{journey.title}</h2>
                   <p>{journey.description}</p>
-                  <div className="progress-bar">
-                    <div className="progress" style={{ width: `${journey.progress}%` }}></div>
+
+                  {/* Start and End Date */}
+                  <div className="journey-dates">
+                    <label>Start Date: {journey.startDate || "Not set"}</label>
+                    <label>End Date: {journey.endDate || "Not set"}</label>
                   </div>
-                  <div className="progress-percent">{journey.progress}%</div>
+
+                  {/* Delete Button */}
+                  <button
+                    className="delete-journey-button"
+                    onClick={() => handleDeleteJourney(journey.goal_id)}
+                  >
+                    Delete Journey
+                  </button>
+
                   <Link to={`/journey/${journey.goal_id}`}>View Details</Link>
                 </li>
               ))}
@@ -63,10 +81,16 @@ const Journeys = () => {
             e.preventDefault();
             const title = e.target.title.value;
             const description = e.target.description.value;
-            handleCreateJourney(title, description);
+            const startDate = e.target.startDate.value;
+            const endDate = e.target.endDate.value;
+            handleCreateJourney(title, description, startDate, endDate);
           }}>
             <input type="text" name="title" placeholder="Title" required />
             <input type="text" name="description" placeholder="Description" required />
+            <label>Start Date</label>
+            <input type="date" name="startDate" />
+            <label>End Date</label>
+            <input type="date" name="endDate" />
             <button type="submit">Create Journey</button>
           </form>
         </div>
