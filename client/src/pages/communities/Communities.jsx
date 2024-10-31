@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from '../../components/sidebar/SideBar';
+import SideBar from '../../components/sidebar/SideBar';
 import CommunityDetails from '../../components/communityDetails/CommunityDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCommunities } from '../../redux/communitySlice/communitySlice'; 
@@ -57,7 +57,7 @@ const Communities = () => {
   return (
     <div className="communities">
       <div className="sidebar">
-        <Sidebar onSelectCommunity={setSelectedCommunity} />
+        <SideBar onSelectCommunity={setSelectedCommunity} />
       </div>
       <div className="content">
         {selectedCommunity ? (

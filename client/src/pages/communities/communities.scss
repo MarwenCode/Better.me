@@ -4,16 +4,18 @@
     width: 60%;
     margin:  20px auto;
   
+  
     .sidebar {
       flex: 2;
-      background-color: #f8f9fa; // Couleur de fond plus douce
-      border-right: 1px solid #ddd; // Ajout d'une bordure pour séparer la sidebar du contenu
+      background-color: #f8f9fa; 
+      border-right: 1px solid #ddd; 
       padding: 20px;
     }
   
     .content {
       flex: 7;
-      padding: 20px; // Ajout de padding pour l'espacement interne
+      padding: 20px; 
+      
     }
   }
   

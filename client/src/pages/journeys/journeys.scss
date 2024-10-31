@@ -17,9 +17,9 @@
 
     .journeys-list {
       flex: 7;
-      background-color: #fff; /* Fond blanc pour plus de contraste */
+      // background-color: #fff; 
       border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Ombre légère */
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
       padding: 20px;
       margin-bottom: 20px;
      
@@ -27,7 +27,7 @@
       h1 {
         font-size: 2.2rem;
         font-weight: bold;
-        color: #1b033d; /* Couleur principale */
+        color: #1b033d; 
         text-align: center;
         margin-bottom: 20px;
       }
@@ -44,13 +44,20 @@
         margin: 0;
     
         .journey-card {
-          background-color: #f9f9f9;
+          // background-color: #f9f9f9;
           border: 1px solid #e0e0e0;
           border-radius: 10px;
           padding: 20px;
           margin-bottom: 20px;
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
           transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+          .delete-icon {
+            color: black;
+            cursor: pointer;
+          }
+
+         
         
     
           &:hover {
@@ -69,6 +76,8 @@
             color: #555;
             margin-bottom: 15px;
           }
+
+          
     
           .journey-dates {
             display: flex;
@@ -119,17 +128,24 @@
 
     .journey-form {
       flex: 3;
-      background-color: #fff;
       border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       padding: 20px;
-      height: 250px;
+      height: 15%;
+     
 
       h2 {
         font-size: 1.5rem;
         font-weight: bold;
         color: #333;
         margin-bottom: 20px;
+
+        &:hover {
+          background-color: red;
+          border-radius: 10px;
+          width: 100%;
+          padding: 3px;
+        }
+       
       }
 
       form {
@@ -143,6 +159,29 @@
         font-size: 1rem;
         border: 1px solid #ccc;
         border-radius: 5px;
+
+        &::placeholder {
+          color: white; /* Couleur du placeholder */
+          opacity: 1; /* S'assure que le placeholder soit bien visible */
+        }
+       
+      
+      }
+
+      label {
+        color: #333;
+
+        text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    transition: color 0.3s;
+    margin-left: 10px;
+    font-weight: 600;
+
+
+
+
+        
       }
 
       button {
@@ -156,7 +195,7 @@
         transition: background-color 0.3s ease;
 
         &:hover {
-          background-color: #3c1672;
+          // background-color: #aaa8ac;
         }
       }
     }

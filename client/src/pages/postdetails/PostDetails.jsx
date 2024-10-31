@@ -4,6 +4,7 @@ import { fetchPostById } from '../../redux/postSlice/postSlice';
 import { fetchCommentsByPost, createComment } from '../../redux/commentSlice/commentSlice';
 import { useParams } from 'react-router-dom';
 import './postdetails.scss';
+import SideBar from '../../components/sidebar/SideBar';
 
 const PostDetails = () => {
   const { id: postId } = useParams(); // Get the post ID from the URL
@@ -50,35 +51,41 @@ const PostDetails = () => {
 
   return (
     <div className="post-details">
-      <h2>{post.title}</h2>
-      <p>{post.content}</p>
-      <p><strong>Created at:</strong> {new Date(post.created_at).toLocaleString()}</p>
-      
-      <h3>Comments</h3>
+    <h2>{post.title}</h2>
+    <p>{post.content}</p>
+    <p><strong>Created at:</strong> {new Date(post.created_at).toLocaleString()}</p>
+  
+    <h3>Comments</h3>
+    <div className="comments">
       {comments.length > 0 ? (
-        <ul>
-          {comments.map((comment) => (
-            <li key={comment.id} className="comment-item">
-              <p>{comment.content}</p>
-              <p><strong>Created at:</strong> {new Date(comment.created_at).toLocaleString()}</p>
-            </li>
-          ))}
-        </ul>
+        comments.map((comment) => (
+          <div key={comment.id} className="comment-item">
+            <div className="avatar"></div> {/* Placeholder for profile picture */}
+            <div className="comment-content">
+              <div className="username">Username</div> {/* Replace with actual username */}
+              <div className="text">{comment.content}</div>
+              <div className="comment-date">{new Date(comment.created_at).toLocaleString()}</div>
+            </div>
+          </div>
+        ))
       ) : (
         <p>No comments available.</p>
       )}
-      
-      <h3>Add a Comment</h3>
-      <form onSubmit={handleCommentSubmit}>
-        <textarea
-          value={commentContent}
-          onChange={(e) => setCommentContent(e.target.value)}
-          placeholder="Write your comment here..."
-          required
-        />
-        <button type="submit">Submit</button>
-      </form>
     </div>
+  
+    <h3>Add a Comment</h3>
+    <form onSubmit={handleCommentSubmit}>
+      <div className="avatar"></div> {/* Placeholder for current user's profile picture */}
+      <textarea
+        value={commentContent}
+        onChange={(e) => setCommentContent(e.target.value)}
+        placeholder="Write your comment here..."
+        required
+      />
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  
   );
 };
 

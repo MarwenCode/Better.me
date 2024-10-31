@@ -94,6 +94,24 @@ export const deleteStep = createAsyncThunk(
   }
 );
 
+export const deleteJourney = createAsyncThunk(
+  'journeys/deleteJourney',
+  async (journeyId, { rejectWithValue }) => {
+    try {
+      const response = await axios.delete(`http://localhost:5000/api/journeys/${journeyId}`);
+      
+      // Retourner la réponse avec le goal_id du journey supprimé
+      return response.data;  // Cela contient { goal_id: journeyId }
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+
+
+
+
 
 
 const journeySlice = createSlice({
@@ -206,7 +224,19 @@ const journeySlice = createSlice({
       .addCase(deleteStep.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
-      });
+      })
+
+      .addCase(deleteJourney.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        
+        // Filtrer les journeys pour exclure celui qui a été supprimé
+        state.journeys = state.journeys.filter(journey => journey.goal_id !== action.payload.goal_id);
+    })
+    
+    
+    
+     
+    
 
       
   },

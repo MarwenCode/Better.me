@@ -57,3 +57,28 @@ export const getJourneyById = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+// Delete a journey by ID
+// Serveur : deleteJourney Controller
+export const deleteJourney = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const client = await pool.connect();
+    const query = 'DELETE FROM Goals WHERE goal_id = $1 RETURNING *';
+    const result = await client.query(query, [id]);
+    client.release();
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'Journey not found' });
+    }
+
+    // Retourner l'ID du journey supprimé
+    res.status(200).json({ message: 'Journey deleted successfully', goal_id: id });
+  } catch (error) {
+    console.error('Error in deleteJourney:', error);
+    res.status(500).json({ error: 'Database error' });
+  }
+};
+
+

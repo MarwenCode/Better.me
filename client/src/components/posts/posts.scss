@@ -1,6 +1,7 @@
 .posts {
   padding: 2rem;
-  background-color: #f4f4f9;
+  // background-color: #f4f4f9;
+  
 
   h2 {
     text-align: center;
@@ -10,16 +11,19 @@
 
   .post-list {
     display: flex;
-    flex-direction: column; // Organisation en colonne
+    flex-direction: column; 
     gap: 20px;
+   
   }
 
   .post-card {
-    background-color: #fff;
+    // background-color: #fff;
     padding: 1.5rem;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease;
+
+    
 
     &:hover {
       transform: translateY(-5px);
