@@ -1,11 +1,10 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   fetchOwnJourneys,
   createJourney,
-  deleteJourney
-  
+  deleteJourney,
 } from "../../redux/journeySlice/journeySlice";
 import SideBar from "../../components/sidebar/SideBar";
 import { FaTrashAlt } from "react-icons/fa";
@@ -17,12 +16,13 @@ const Journeys = () => {
   const status = useSelector((state) => state.journeys.status);
   const error = useSelector((state) => state.journeys.error);
 
-  const user = JSON.parse(localStorage.getItem("user")); // Récupérer l'utilisateur depuis le local storage
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const user = JSON.parse(localStorage.getItem("user"));
   const userId = user ? user.id : null;
 
   const fetchJourneys = useCallback(() => {
     if (userId) {
-      console.log("Dispatching fetchOwnJourneys for user ID:", userId);
       dispatch(fetchOwnJourneys(userId));
     }
   }, [dispatch, userId]);
@@ -33,40 +33,41 @@ const Journeys = () => {
 
   const handleCreateJourney = (title, description, startDate, endDate) => {
     if (userId) {
-      console.log("Dispatching createJourney with:", {
-        title,
-        description,
-        startDate,
-        endDate,
-        user_id: userId,
-      });
+      // Assurez-vous que startDate et endDate sont au format "YYYY-MM-DD"
+      const formattedStartDate = new Date(startDate).toISOString().split('T')[0];
+      const formattedEndDate = new Date(endDate).toISOString().split('T')[0];
+  
+      console.log("Formatted Start Date:", formattedStartDate);
+      console.log("Formatted End Date:", formattedEndDate);
+  
       dispatch(
         createJourney({
           title,
           description,
-          startDate,
-          endDate,
+          startDate: formattedStartDate,  // Format correct pour l'envoi
+          endDate: formattedEndDate,
           user_id: userId,
         })
       );
+      setIsModalOpen(false); // Ferme le modal après la création
     }
   };
+  
 
   const handleDeleteJourney = (journeyId) => {
-    dispatch(deleteJourney(journeyId))  // Appel de la suppression
-      .unwrap() // Utilisation de unwrap() pour obtenir la valeur retournée si fulfilled
+    dispatch(deleteJourney(journeyId))
+      .unwrap()
       .then(() => {
-        dispatch(fetchOwnJourneys());  // Recharger les journeys après la suppression
+        dispatch(fetchOwnJourneys());
       })
       .catch((error) => {
-        console.error('Error in deleting journey:', error);
+        console.error("Error in deleting journey:", error);
       });
   };
-  
-  
-  
- 
-  
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   return (
     <div className="journeys-container">
@@ -84,18 +85,24 @@ const Journeys = () => {
               {journeys.map((journey) => (
                 <li key={journey.goal_id} className="journey-card">
                   <div
-        className="delete"
-        onClick={() => handleDeleteJourney(journey.goal_id)} 
-      >
-        <FaTrashAlt className="delete-icon" />
-      </div>
+                    className="delete"
+                    onClick={() => handleDeleteJourney(journey.goal_id)}>
+                    <FaTrashAlt className="delete-icon" />
+                    <div className="journey-dates">
+                      <label>
+                        Start Date:
+                        {new Date(journey.startDate).toLocaleDateString() ||
+                          "Not set"}
+                      </label>
+                      <label>
+                        End Date:
+                        {new Date(journey.endDate).toLocaleDateString() ||
+                          "Not set"}
+                      </label>
+                    </div>
+                  </div>
                   <h2>{journey.title}</h2>
                   <p>{journey.description}</p>
-
-                  <div className="journey-dates">
-                    <label>Start Date: {journey.startDate || "Not set"}</label>
-                    <label>End Date: {journey.endDate || "Not set"}</label>
-                  </div>
 
                   <Link to={`/journey/${journey.goal_id}`}>View Details</Link>
                 </li>
@@ -103,31 +110,55 @@ const Journeys = () => {
             </ul>
           )}
         </div>
-        <div className="journey-form">
-          <h2>+ New Journey</h2>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              const title = e.target.title.value;
-              const description = e.target.description.value;
-              const startDate = e.target.startDate.value;
-              const endDate = e.target.endDate.value;
-              handleCreateJourney(title, description, startDate, endDate);
-            }}>
-            <input type="text" name="title" placeholder="Title" required />
-            <input
-              type="text"
-              name="description"
-              placeholder="Description"
-              required
-            />
-            <label>Start Date</label>
-            <input type="date" name="startDate" />
-            <label>End Date</label>
-            <input type="date" name="endDate" />
-            <button type="submit">Create Journey</button>
-          </form>
+
+        <div className="side">
+          <button className="open-modal-button" onClick={toggleModal}>
+            + Add a Journey
+          </button>
+          <div className="infos">
+            <div className="personalPage">
+              <span>link page logo </span>
+            </div>
+            <div className="folowers">
+              <span>Followers: </span>
+            </div>
+            <button>floww or unfollow </button>
+          </div>
         </div>
+
+        {/* Modal pour créer un nouveau journey */}
+        {isModalOpen && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <h2>Create a New Journey</h2>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const title = e.target.title.value;
+                  const description = e.target.description.value;
+                  const startDate = e.target.startDate.value;
+                  const endDate = e.target.endDate.value;
+                  handleCreateJourney(title, description, startDate, endDate);
+                }}>
+                <input type="text" name="title" placeholder="Title" required />
+                <input
+                  type="text"
+                  name="description"
+                  placeholder="Description"
+                  required
+                />
+                <label>Start Date</label>
+                <input type="date" name="startDate" />
+                <label>End Date</label>
+                <input type="date" name="endDate" />
+                <button type="submit">Create Journey</button>
+              </form>
+              <button className="close-modal-button" onClick={toggleModal}>
+                Close
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

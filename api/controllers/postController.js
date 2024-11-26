@@ -7,25 +7,27 @@ export const createPost = async (req, res) => {
   const { community_id, user_id, title, content } = req.body;
   const picture = req.file; // La photo est optionnelle
 
-  console.log('Request body:', req.body); // Affichez les données reçues pour débogage
-  console.log('Uploaded file:', picture); // Affichez les fichiers reçus pour débogage
+  console.log("Request body:", req.body); // Log des données envoyées par le client
+  console.log("Uploaded file:", picture); // Log du fichier envoyé, si présent
 
   if (!community_id || !user_id || !title || !content) {
-    return res.status(400).json({ error: 'Community ID, User ID, title, and content are required' });
+    return res.status(400).json({ error: "Community ID, User ID, title, and content are required" });
   }
 
   try {
     const client = await pool.connect();
-    const query = 'INSERT INTO Posts (community_id, user_id, title, content, created_at) VALUES ($1, $2, $3, $4, NOW()) RETURNING *';
+    const query =
+      "INSERT INTO Posts (community_id, user_id, title, content, created_at) VALUES ($1, $2, $3, $4, NOW()) RETURNING *";
     const result = await client.query(query, [community_id, user_id, title, content]);
     client.release();
 
     res.status(201).json({ post: result.rows[0] });
   } catch (error) {
-    console.error('Error in createPost:', error);
-    res.status(500).json({ error: 'Database error' });
+    console.error("Error in createPost:", error);
+    res.status(500).json({ error: "Database error" });
   }
 };
+
 
 
 

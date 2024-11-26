@@ -1,0 +1,89 @@
+/* Style global du modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Fond semi-transparent noir */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Pour s'assurer que le modal soit au-dessus du contenu */
+  }
+  
+  /* Contenu du modal */
+  .modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px; /* Largeur maximale du modal */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Titre du modal */
+  .modal-content h2 {
+    color: black;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Style du formulaire */
+  .modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .modal-content input,
+  .modal-content textarea {
+    padding: 12px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: black;
+    background-color: white;
+  }
+  
+  .modal-content textarea {
+    height: 150px; /* Hauteur pour le textarea */
+    resize: none; /* Désactive le redimensionnement */
+  }
+  
+  /* Style des boutons d'action dans le modal */
+  .modal-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .modal-actions button {
+    padding: 10px 20px;
+    border: 1px solid #000;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .modal-actions button[type="button"] {
+    border-color: #f44336; /* Bordure rouge pour le bouton annuler */
+    color: #f44336; /* Texte rouge pour le bouton annuler */
+  }
+  
+  .modal-actions button[type="button"]:hover {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .modal-actions button:hover {
+    background-color: black;
+    color: white;
+  }
+  
+  

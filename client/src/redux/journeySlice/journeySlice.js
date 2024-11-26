@@ -13,17 +13,21 @@ export const fetchOwnJourneys = createAsyncThunk(
 );
 
 // Create a new journey
+// Create a new journey
 export const createJourney = createAsyncThunk(
   'journeys/createJourney',
-  async ({ title, description, user_id }) => {
+  async ({ title, description, user_id, start_date, end_date }) => { // Ajoutez start_date et end_date
     const response = await axios.post('http://localhost:5000/api/journeys', {
       title,
       description,
-      user_id
+      user_id,
+      start_date,
+      end_date
     });
     return response.data.journey;
   }
 );
+
 
 // Fetch a specific journey by ID
 export const fetchJourneyById = createAsyncThunk(
@@ -142,8 +146,15 @@ const journeySlice = createSlice({
       })
       .addCase(createJourney.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.journeys.push(action.payload); // Add new journey to the list
+        console.log("Journey added:", action.payload);
+        state.journeys.push({
+          ...action.payload,
+          startDate: action.payload.startDate ? new Date(action.payload.startDate).toISOString() : null,
+          endDate: action.payload.endDate ? new Date(action.payload.endDate).toISOString() : null,
+        });
+        
       })
+      
       .addCase(createJourney.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;

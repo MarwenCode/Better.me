@@ -1,67 +1,60 @@
-import React, { useState, useEffect } from 'react';
-import CreateCommunityModal from '../createCommunityModal/CreateCommunityModal';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchCommunities, deleteCommunityById } from '../../redux/communitySlice/communitySlice';
-import { fetchPostsByCommunity } from '../../redux/postSlice/postSlice';
-import DeleteModal from './DeleteModal';
-import { AiFillHome, AiOutlineStar, AiOutlineBarChart, AiOutlineDelete  } from 'react-icons/ai'; 
-import './sidebar.scss';
+import React, { useState, useEffect } from "react";
+import CreateCommunityModal from "../createCommunityModal/CreateCommunityModal";
+import DeleteModal from "./DeleteModal";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCommunities, deleteCommunityById } from "../../redux/communitySlice/communitySlice";
+import { useNavigate } from "react-router-dom";
+import { AiFillHome, AiOutlineStar, AiOutlineBarChart, AiOutlineDelete } from "react-icons/ai";
+import "./sidebar.scss";
 
-const Sidebar = ({ onSelectCommunity }) => {
+const Sidebar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isConfirmModalDeleteOpen, setConfirmModalDeleteOpen] = useState(false);
-  const [communityToDelete, setCommunityToDelete] = useState(null); // Stocker l'ID de la communauté à supprimer
+  const [communityToDelete, setCommunityToDelete] = useState(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // Pour naviguer vers une autre page
   const { communities, status, error } = useSelector((state) => state.communities);
-  const { posts } = useSelector((state) => state.posts);
 
+  // Charger les communautés au montage
   useEffect(() => {
-    if (status === 'idle') {
+    if (status === "idle") {
       dispatch(fetchCommunities());
     }
   }, [dispatch, status]);
 
-  useEffect(() => {
-    if (communities && communities.length > 0) {
-      communities.forEach((community) => {
-        dispatch(fetchPostsByCommunity(community.id));
-      });
-    }
-  }, [dispatch, communities]);
-
+  // Ouvrir la modal de création de communauté
   const handleCreateCommunity = () => {
     setIsModalOpen(true);
   };
 
+  // Fermer la modal de création de communauté
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
 
-  const handleSelectCommunity = (community) => {
-    console.log('Selected community:', community); // Log to verify
-    onSelectCommunity(community);
-  };
-
-  // Ouvre le modal de confirmation pour supprimer la communauté
+  // Gestion de la suppression de communauté
   const handleDeleteClick = (communityId) => {
-    setCommunityToDelete(communityId); // Stocker l'ID de la communauté
-    setConfirmModalDeleteOpen(true); // Ouvrir le modal de confirmation
+    setCommunityToDelete(communityId);
+    setConfirmModalDeleteOpen(true);
   };
 
-  // Supprime la communauté après confirmation
   const handleDeleteCommunity = async () => {
     try {
-      dispatch(deleteCommunityById(communityToDelete)); // Utiliser l'ID stocké
-      onSelectCommunity(null); // Effacer la communauté sélectionnée après suppression
-      setConfirmModalDeleteOpen(false); // Fermer le modal
+      dispatch(deleteCommunityById(communityToDelete));
+      setConfirmModalDeleteOpen(false);
     } catch (error) {
-      console.error('Error deleting community:', error);
+      console.error("Error deleting community:", error);
     }
+  };
+
+  // Naviguer vers une page de communauté
+  const handleNavigateToCommunity = (communityId) => {
+    navigate(`/community/${communityId}`);
   };
 
   return (
     <div className="sidebar">
- <nav className="sidebar-nav">
+      <nav className="sidebar-nav">
         <ul>
           <li>
             <AiFillHome className="icon" />
@@ -81,35 +74,45 @@ const Sidebar = ({ onSelectCommunity }) => {
       <button className="create-community-button" onClick={handleCreateCommunity}>
         Create Community
       </button>
+
       <div className="communities-list">
         <h3>Recent Communities</h3>
-        {status === 'loading' && <p>Loading communities...</p>}
-        {status === 'succeeded' && communities.length > 0 ? (
+        {status === "loading" && <p>Loading communities...</p>}
+        {status === "succeeded" && communities.length > 0 ? (
           communities.map((community) => (
-            <div key={community.id} className="community-item" onClick={() => handleSelectCommunity(community)}>
-              <span className="community-title">{community.title}</span>
-              <p className="community-description">{community.description}</p>
-              <button 
+            <div key={community.id} className="community-item">
+              <div
+                className="community-info"
+                onClick={() => handleNavigateToCommunity(community.id)} // Naviguer vers la communauté
+              >
+                <span className="community-title">{community.title}</span>
+                <p className="community-description">{community.description}</p>
+              </div>
+              <button
                 onClick={(e) => {
-                  e.stopPropagation(); 
-                  handleDeleteClick(community.id); // Ouvre le modal pour confirmation
-                }}>
-                  <AiOutlineDelete className="delete-icon" />
+                  e.stopPropagation(); // Empêche la navigation lors de la suppression
+                  handleDeleteClick(community.id);
+                }}
+                className="delete-btn"
+              >
+                <AiOutlineDelete className="delete-icon" />
               </button>
             </div>
           ))
         ) : (
           <p>No communities found.</p>
         )}
-        {status === 'failed' && <p>Error fetching communities: {error}</p>}
+        {status === "failed" && <p>Error fetching communities: {error}</p>}
       </div>
+
+      {/* Modal de création de communauté */}
       {isModalOpen && <CreateCommunityModal isOpen={isModalOpen} onClose={handleCloseModal} />}
 
       {/* Modal de confirmation de suppression */}
       <DeleteModal
         isOpen={isConfirmModalDeleteOpen}
-        onClose={() => setConfirmModalDeleteOpen(false)} // Ferme le modal sans supprimer
-        onConfirm={handleDeleteCommunity} // Confirme et supprime
+        onClose={() => setConfirmModalDeleteOpen(false)}
+        onConfirm={handleDeleteCommunity}
       />
     </div>
   );

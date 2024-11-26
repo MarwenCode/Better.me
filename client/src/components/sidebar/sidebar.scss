@@ -15,62 +15,46 @@
   
 }
 
+.sidebar-nav {
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 
-.sidebar-nav ul li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-  font-weight: 500;
-}
+    li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      font-weight: 500;
 
-.sidebar-nav ul li a {
-  text-decoration: none;
-  color: #333;
-  font-size: 16px;
-  transition: color 0.3s;
-  margin-left: 10px; 
-}
+      // Style pour l'icône
+      .icon {
+        font-size: 18px;
+        color: #1976d2;
+        transition: color 0.3s ease;
+      }
 
-.icon {
-  font-size: 18px;
-  color: #666;
-}
+      // Style pour le lien
+      a {
+        text-decoration: none;
+        color: #333; // Couleur par défaut
+        font-size: 16px;
+        margin-left: 10px;
+        transition: color 0.3s ease;
+      }
 
-.sidebar-nav ul li a:hover {
-  // color: #007bff;
-}
-
-.icon:hover {
-  // color: #007bff; /* Changer la couleur de l'icône au survol */
-}
-
-
-.sidebar-nav ul li a:hover {
- 
-  .icon {
    
+      &:hover {
+        .icon {
+        
+        }
+
+        a {
+          
+        }
+      }
+    }
   }
-}
-
-
-.sidebar-nav ul {
-  list-style: none;
-  padding: 0;
-}
-
-.sidebar-nav ul li {
-  margin-bottom: 10px;
-}
-
-.sidebar-nav ul li a {
-  text-decoration: none;
-  color: #333;
-  font-size: 16px;
-  transition: color 0.3s;
-}
-
-.sidebar-nav ul li a:hover {
-  
 }
 
 .create-community-button {
@@ -78,6 +62,7 @@
   width: 100%;
   padding: 10px;
   background-color: #1b033d;
+  // background-color: #2c343b;
   color: #fff;
   border: none;
   border-radius: 4px;

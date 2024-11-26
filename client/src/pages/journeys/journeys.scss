@@ -1,111 +1,89 @@
 .journeys-container {
   display: flex;
-  // background-color: #f5f5f5;
   padding: 20px;
-  gap: 20px; 
+  gap: 20px;
   box-sizing: border-box;
-
-  
 
   .journeys-content {
     flex: 2;
     display: flex;
-    // flex-direction: column;
     margin-left: 20%;
     gap: 20px;
-    width:  100px;
+    width: 100px;
 
     .journeys-list {
       flex: 7;
-      // background-color: #fff; 
       border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+      // box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       padding: 20px;
       margin-bottom: 20px;
-     
-    
+
       h1 {
         font-size: 2.2rem;
         font-weight: bold;
-        color: #1b033d; 
+        color: #1b033d;
         text-align: center;
         margin-bottom: 20px;
       }
-    
+
       p {
         text-align: center;
-        color: #666; /* Couleur du texte des messages d'erreur ou de chargement */
+        color: #666;
         font-size: 1.1rem;
       }
-    
+
       ul {
         list-style-type: none;
         padding: 0;
         margin: 0;
-    
+
         .journey-card {
-          // background-color: #f9f9f9;
-          border: 1px solid #e0e0e0;
+          // border: 1px solid #e0e0e0;
           border-radius: 10px;
+          border-bottom: 2px solid rgb(95, 94, 94);
           padding: 20px;
           margin-bottom: 20px;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+          // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
           transition: box-shadow 0.3s ease, transform 0.3s ease;
+          width: 70%;
 
           .delete-icon {
             color: black;
             cursor: pointer;
           }
 
-         
-        
-    
           &:hover {
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-            transform: translateY(-5px); /* Légère élévation au survol */
+            transform: translateY(-5px);
           }
-    
+
           h2 {
             font-size: 1.8rem;
             color: #1b033d;
             margin-bottom: 10px;
+            
           }
-    
+
           p {
             font-size: 1rem;
             color: #555;
             margin-bottom: 15px;
+            text-align: left;
           }
 
-          
-    
           .journey-dates {
             display: flex;
             justify-content: space-between;
             font-size: 0.9rem;
             color: #777;
             margin-bottom: 15px;
-    
+            background-color: rgb(219, 207, 207);
+
             label {
               font-weight: bold;
             }
           }
-    
-          .delete-journey-button {
-            background-color: #f44336;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-size: 1rem;
-    
-            &:hover {
-              background-color: #d32f2f;
-            }
-          }
-    
+
           a {
             display: inline-block;
             margin-top: 10px;
@@ -116,7 +94,7 @@
             border-radius: 5px;
             transition: background-color 0.3s ease;
             font-weight: bold;
-    
+
             &:hover {
               background-color: #3c1672;
             }
@@ -124,28 +102,34 @@
         }
       }
     }
-    
+
+    .open-modal-button {
+      background-color: #1b033d;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 20px 0;
+      transition: background-color 0.3s ease;
+      height: fit-content;
+
+      &:hover {
+        background-color: #3c1672;
+      }
+    }
 
     .journey-form {
       flex: 3;
       border-radius: 10px;
       padding: 20px;
       height: 15%;
-     
 
       h2 {
         font-size: 1.5rem;
         font-weight: bold;
         color: #333;
         margin-bottom: 20px;
-
-        &:hover {
-          background-color: red;
-          border-radius: 10px;
-          width: 100%;
-          padding: 3px;
-        }
-       
       }
 
       form {
@@ -161,27 +145,15 @@
         border-radius: 5px;
 
         &::placeholder {
-          color: white; /* Couleur du placeholder */
-          opacity: 1; /* S'assure que le placeholder soit bien visible */
+          color: white;
         }
-       
-      
       }
 
       label {
         color: #333;
-
-        text-decoration: none;
-    color: #333;
-    font-size: 16px;
-    transition: color 0.3s;
-    margin-left: 10px;
-    font-weight: 600;
-
-
-
-
-        
+        font-size: 16px;
+        margin-left: 10px;
+        font-weight: 600;
       }
 
       button {
@@ -195,9 +167,92 @@
         transition: background-color 0.3s ease;
 
         &:hover {
-          // background-color: #aaa8ac;
+          background-color: #333;
         }
       }
     }
   }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 500px;
+    max-width: 90%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+    color: #1b033d;
+    margin-bottom: 20px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  input[type="text"],
+  input[type="date"] {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+  label {
+    text-align: left;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 10px;
+    color: #333;
+  }
+  
+  button[type="submit"] {
+    padding: 10px;
+    background-color: #1b033d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #333;
+  }
+  
+  .close-modal-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .close-modal-button:hover {
+    background-color: #a12831;
+  }
+  
 }

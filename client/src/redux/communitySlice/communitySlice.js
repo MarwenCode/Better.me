@@ -26,7 +26,7 @@ export const fetchCommunities = createAsyncThunk(
       const response = await axios.get('http://localhost:5000/api/communities');
       return response.data.communities;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response?.data || error.message);
     }
   }
 );
@@ -62,34 +62,48 @@ const communitySlice = createSlice({
   initialState: {
     communities: [],
     community: null,
-    status: 'idle',
+    status: 'idle', // État global
+    createStatus: 'idle', // État spécifique à la création
     error: null,
   },
-  reducers: {},
+  reducers: {
+    resetCommunityState: (state) => {
+      state.community = null;
+      state.createStatus = 'idle';
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
+      // Créer une communauté
       .addCase(createCommunity.pending, (state) => {
-        state.status = 'loading';
+        state.createStatus = 'loading';
       })
       .addCase(createCommunity.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.createStatus = 'succeeded';
         state.communities.push(action.payload);
       })
       .addCase(createCommunity.rejected, (state, action) => {
-        state.status = 'failed';
+        state.createStatus = 'failed';
         state.error = action.payload;
       })
+
+      // Obtenir toutes les communautés
       .addCase(fetchCommunities.pending, (state) => {
         state.status = 'loading';
       })
       .addCase(fetchCommunities.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.communities = action.payload;
+        state.communities = action.payload.sort(
+          (a, b) => new Date(b.created_at) - new Date(a.created_at)
+        );
       })
       .addCase(fetchCommunities.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
       })
+
+      // Obtenir une communauté par ID
       .addCase(fetchCommunityById.pending, (state) => {
         state.status = 'loading';
       })
@@ -102,22 +116,25 @@ const communitySlice = createSlice({
         state.error = action.payload;
       })
 
+      // Supprimer une communauté par ID
       .addCase(deleteCommunityById.pending, (state) => {
         state.status = 'loading';
       })
       .addCase(deleteCommunityById.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.communities = state.communities.filter(community => community.id !== action.payload);
-        state.community = null;
+        state.communities = state.communities.filter(
+          (community) => community.id !== action.payload
+        );
+        state.community = null; // Réinitialisation après suppression
       })
       .addCase(deleteCommunityById.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload;
-      })
-
-      
+      });
   },
 });
+
+
 
 export default communitySlice.reducer;
 

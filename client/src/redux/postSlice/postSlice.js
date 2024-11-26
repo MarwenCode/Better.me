@@ -5,21 +5,20 @@ import axios from 'axios';
 
 // Create a new post
 export const createPost = createAsyncThunk(
-  'posts/createPost',
-  async (postData, { rejectWithValue }) => {
+  "posts/createPost",
+  async (formData, { rejectWithValue }) => {
     try {
-      // Assurez-vous que 'postData' est bien un FormData et non un objet JSON
-      const response = await axios.post('http://localhost:5000/api/posts', postData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+      const response = await axios.post("http://localhost:5000/api/posts", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
       return response.data.post;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      console.error("Error in createPost thunk:", error);
+      return rejectWithValue(error.response?.data || "An unknown error occurred");
     }
   }
 );
+
 
 // Fetch posts by community
 export const fetchPostsByCommunity = createAsyncThunk(

@@ -2,12 +2,15 @@ import pool from '../config/db.js';
 
 // Create a new journey
 export const createJourney = async (req, res) => {
-  const { title, description, user_id } = req.body; // user_id will come from the request body
+  const { title, description, user_id, start_date, end_date } = req.body; 
 
   try {
     const client = await pool.connect();
-    const query = 'INSERT INTO Goals (user_id, title, description, created_at, progress) VALUES ($1, $2, $3, NOW(), 0) RETURNING *';
-    const result = await client.query(query, [user_id, title, description]);
+    const query = `
+      INSERT INTO Goals (user_id, title, description, start_date, end_date, created_at, progress)
+      VALUES ($1, $2, $3, $4, $5, NOW(), 0)
+      RETURNING *`;
+    const result = await client.query(query, [user_id, title, description, start_date, end_date]);
     client.release();
 
     res.status(201).json({ journey: result.rows[0] });
@@ -16,6 +19,7 @@ export const createJourney = async (req, res) => {
     res.status(500).json({ error: 'Database error' });
   }
 };
+
 
 // Get journeys for a specific user
 export const getOwnJourneys = async (req, res) => {
