@@ -29,6 +29,36 @@ export const createPost = async (req, res) => {
 };
 
 
+export const deletePost = async (req, res) => {
+  const { id: postId } = req.params; 
+
+  if (!postId) {
+    return res.status(400).json({ error: "Post ID is required" });
+  }
+
+  try {
+    const client = await pool.connect();
+    
+    // Check if the post exists
+    const checkQuery = "SELECT * FROM Posts WHERE id = $1";
+    const checkResult = await client.query(checkQuery, [postId]);
+
+    if (checkResult.rowCount === 0) {
+      client.release();
+      return res.status(404).json({ error: "Post not found" });
+    }
+
+    // Delete the post
+    const deleteQuery = "DELETE FROM Posts WHERE id = $1";
+    await client.query(deleteQuery, [postId]);
+    client.release();
+
+    res.status(200).json({ message: "Post deleted successfully" });
+  } catch (error) {
+    console.error("Error in deletePost:", error);
+    res.status(500).json({ error: "Database error" });
+  }
+};
 
 
 

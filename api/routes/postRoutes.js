@@ -21,6 +21,7 @@ import {
   getPosts,
   getPostsByUser,
   getPostById,
+  deletePost
 } from "../controllers/postController.js";
 
 const router = express.Router();
@@ -34,6 +35,7 @@ router.post("/", upload.single("picture"), createPost); // Route pour créer un 
 router.get("/", getPosts); // Route pour récupérer tous les posts
 router.get("/user/:user_id", getPostsByUser); // Route pour récupérer les posts d'un utilisateur
 router.get("/community/:community_id", getPostsByCommunity); // Route pour récupérer les posts d'une communauté
-router.get("/post/:id", getPostById); // Route pour récupérer un post spécifique
+router.get("/post/:id", getPostById); 
+router.delete("/posts/:id", deletePost);
 
 export default router;

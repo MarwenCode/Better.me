@@ -113,6 +113,7 @@ const Sidebar = () => {
         isOpen={isConfirmModalDeleteOpen}
         onClose={() => setConfirmModalDeleteOpen(false)}
         onConfirm={handleDeleteCommunity}
+        type="community" // Pass "community" to the DeleteModal
       />
     </div>
   );

@@ -1,8 +1,14 @@
-import React from 'react'
+import React from 'react';
+
 
 const Communities = () => {
   return (
-    <div>Communities</div>
+    <>
+       <div>Communities</div>
+     
+    
+    </>
+ 
   )
 }
 

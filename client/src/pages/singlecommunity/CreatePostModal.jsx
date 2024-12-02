@@ -48,7 +48,7 @@ const CreatePostModal = ({ isOpen, onClose, onSubmit }) => {
     </button>
   </div>
 </form>
-form>
+
       </div>
     </div>
   );

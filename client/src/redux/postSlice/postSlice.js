@@ -19,6 +19,20 @@ export const createPost = createAsyncThunk(
   }
 );
 
+// Delete a post by ID
+export const deletePost = createAsyncThunk(
+  "posts/deletePost",
+  async (postId, { rejectWithValue }) => {
+    try {
+      const response = await axios.delete(`http://localhost:5000/api/posts/${postId}`);
+      return response.data; // Optionally, use response data for further confirmation
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
+
 
 // Fetch posts by community
 export const fetchPostsByCommunity = createAsyncThunk(
@@ -119,7 +133,13 @@ const postSlice = createSlice({
         .addCase(fetchPostById.rejected, (state, action) => {
           state.status = 'failed';
           state.error = action.error.message;
-        });
+        })
+        //delete post
+        .addCase(deletePost.fulfilled, (state, action) => {
+          state.status = "succeeded";
+          state.posts = state.posts.filter((post) => post.id !== action.meta.arg); // Using postId passed to the thunk
+        })
+        
       
   },
 });
